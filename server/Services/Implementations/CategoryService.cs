@@ -4,20 +4,30 @@ using server.Models.DTOs;
 using server.Models.Entities;
 using server.Repositories.Interfaces;
 using server.Services.Interfaces;
+using server.Validator;
 using Slugify;
 
 namespace server.Services.Implementations;
 
-public class CategoryService : ICategoryService
+public class CategoryService(ICategoryRepository categoryRepository) : ICategoryService
 {
-    public async Task<object> GetAll(ICategoryRepository categoryRepository)
+    private readonly ICategoryRepository categoryRepository = categoryRepository;
+
+    public async Task<object> GetAll()
     {
         var categories = (await categoryRepository.GetAll()).Select(category => category.AsDto());
         return new DataResponse(HttpStatusCode.OK, "success", categories);
     }
 
-    public async Task<Response> Create(ICategoryRepository categoryRepository, CreateCategoryDto request)
+    public async Task<object> Create(CreateCategoryDto request)
     {
+        var validator = new CategoryValidator();
+        var result = validator.Validate(request);
+        if (!result.IsValid)
+        {
+            return Results.ValidationProblem(result.ToDictionary(), statusCode: (int)HttpStatusCode.UnprocessableEntity);
+        }
+
         SlugHelper helper = new();
         var slug = helper.GenerateSlug(request.Name);
 
@@ -38,17 +48,17 @@ public class CategoryService : ICategoryService
         return new Response(HttpStatusCode.Created, "Category has been created successfully");
     }
 
-    public Task<Response> FindBySlug(ICategoryRepository categoryRepository, string slug)
+    public Task<object> FindBySlug(string slug)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Response> Update(ICategoryRepository categoryRepository, string slug, UpdateCategoryDto request)
+    public Task<object> Update(string slug, UpdateCategoryDto request)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Response> Delete(ICategoryRepository categoryRepository, string slug)
+    public Task<object> Delete(string slug)
     {
         throw new NotImplementedException();
     }

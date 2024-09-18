@@ -1,13 +1,12 @@
 using server.Models.DTOs;
-using server.Repositories.Interfaces;
 
 namespace server.Services.Interfaces;
 
 public interface ICategoryService
 {
-    Task<object> GetAll(ICategoryRepository categoryRepository);
-    Task<Response> Create(ICategoryRepository categoryRepository, CreateCategoryDto request);
-    Task<Response> FindBySlug(ICategoryRepository categoryRepository, string slug);
-    Task<Response> Update(ICategoryRepository categoryRepository, string slug, UpdateCategoryDto request);
-    Task<Response> Delete(ICategoryRepository categoryRepository, string slug);
+    Task<object> GetAll();
+    Task<object> Create(CreateCategoryDto request);
+    Task<object> FindBySlug(string slug);
+    Task<object> Update(string slug, UpdateCategoryDto request);
+    Task<object> Delete(string slug);
 }
