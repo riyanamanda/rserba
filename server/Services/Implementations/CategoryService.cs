@@ -1,10 +1,11 @@
 using System.Net;
+using FluentValidation.Results;
 using server.Models;
 using server.Models.DTOs;
 using server.Models.Entities;
 using server.Repositories.Interfaces;
 using server.Services.Interfaces;
-using server.Validator;
+using server.Validator.CategoryValidator;
 using Slugify;
 
 namespace server.Services.Implementations;
@@ -21,7 +22,7 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
 
     public async Task<object> Create(CreateCategoryDto request)
     {
-        var validator = new CategoryValidator();
+        var validator = new CreateCategoryValidator();
         var result = validator.Validate(request);
         if (!result.IsValid)
         {
@@ -31,35 +32,67 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         SlugHelper helper = new();
         var slug = helper.GenerateSlug(request.Name);
 
-        var category = await categoryRepository.FindBySlug(slug);
-        if (category is not null)
+        Category? existingCategory = await categoryRepository.FindBySlug(slug);
+        if (existingCategory is not null)
         {
             return new Response(HttpStatusCode.BadRequest, "Category already exists");
         }
 
-        Category newCategory = new()
+        Category category = new()
         {
             Name = request.Name,
             Slug = slug
         };
 
-        await categoryRepository.Create(newCategory);
+        await categoryRepository.Create(category);
 
         return new Response(HttpStatusCode.Created, "Category has been created successfully");
     }
 
-    public Task<object> FindBySlug(string slug)
+    public async Task<object> FindBySlug(string slug)
     {
-        throw new NotImplementedException();
+        Category? existingCategory = await categoryRepository.FindBySlug(slug);
+        if (existingCategory is null)
+        {
+            return new Response(HttpStatusCode.UnprocessableEntity, "Category not found!");
+        }
+
+        return new DataResponse(HttpStatusCode.OK, "success", existingCategory!);
     }
 
-    public Task<object> Update(string slug, UpdateCategoryDto request)
+    public async Task<object> Update(string slug, UpdateCategoryDto request)
     {
-        throw new NotImplementedException();
+        var validator = new UpdateCategoryValidator();
+        ValidationResult result = validator.Validate(request);
+        if (!result.IsValid)
+        {
+            return Results.ValidationProblem(result.ToDictionary(), statusCode: (int)HttpStatusCode.UnprocessableEntity);
+        }
+
+        Category? existingCategory = await categoryRepository.FindBySlug(slug);
+        if (existingCategory is null)
+        {
+            return new Response(HttpStatusCode.NotFound, "Category not found");
+        }
+
+        SlugHelper helper = new();
+        existingCategory.Name = request.Name;
+        existingCategory.Slug = helper.GenerateSlug(request.Name);
+        await categoryRepository.Update(existingCategory);
+
+        return new Response(HttpStatusCode.OK, "Category has been updated successfully");
     }
 
-    public Task<object> Delete(string slug)
+    public async Task<object> Delete(string slug)
     {
-        throw new NotImplementedException();
+        Category? existingCategory = await categoryRepository.FindBySlug(slug);
+        if (existingCategory is null)
+        {
+            return new Response(HttpStatusCode.NotFound, "Category not found");
+        }
+
+        await categoryRepository.Delete(slug);
+
+        return new Response(HttpStatusCode.OK, "Category has been deleted");
     }
 }
