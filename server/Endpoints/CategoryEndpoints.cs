@@ -4,17 +4,15 @@ using server.Services.Interfaces;
 
 namespace server.Endpoints;
 
-public class CategoryEndpoints(ICategoryService categoryService) : ICarterModule
+public class CategoryEndpoints() : ICarterModule
 {
-    private readonly ICategoryService categoryService = categoryService;
-
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("api/category");
-        group.MapGet("/", async () => await categoryService.GetAll());
-        group.MapPost("/", async (CreateCategoryDto request) => await categoryService.Create(request));
-        group.MapGet("/{slug}", async (string slug) => await categoryService.FindBySlug(slug));
-        group.MapPatch("/{slug}", async (string slug, UpdateCategoryDto request) => await categoryService.Update(slug, request));
-        group.MapDelete("/{slug}", async (string slug) => await categoryService.Delete(slug));
+        group.MapGet("/", async (ICategoryService categoryService) => await categoryService.GetAll());
+        group.MapPost("/", async (ICategoryService categoryService, CreateCategoryDto request) => await categoryService.Create(request));
+        group.MapGet("/{slug}", async (ICategoryService categoryService, string slug) => await categoryService.FindBySlug(slug));
+        group.MapPatch("/{slug}", async (ICategoryService categoryService, string slug, UpdateCategoryDto request) => await categoryService.Update(slug, request));
+        group.MapDelete("/{slug}", async (ICategoryService categoryService, string slug) => await categoryService.Delete(slug));
     }
 }

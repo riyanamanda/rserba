@@ -1,19 +1,17 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace server.Models.DTOs;
 
 public record CategoryDto(
     int Id,
-    [Required, MaxLength(10)] string Name,
-    [Required] string Slug,
+    string Name,
+    string Slug,
     DateTime CreatedAt,
     DateTime UpdatedAt
 );
 
 public record CreateCategoryDto(
-    [Required, MaxLength(10)] string Name
+   string Name
 );
 
 public record UpdateCategoryDto(
-    [Required, MaxLength(10)] string Name
+   string Name
 );

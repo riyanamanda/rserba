@@ -7,11 +7,9 @@ public class Category
 {
     public int Id { get; set; }
 
-    [Required, MaxLength(50)]
-    public string Name { get; set; } = string.Empty;
+    public required string Name { get; set; }
 
-    [Required]
-    public string Slug { get; set; } = string.Empty;
+    public required string Slug { get; set; }
 
     [JsonPropertyName("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.Now;
