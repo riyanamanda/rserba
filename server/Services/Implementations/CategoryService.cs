@@ -12,8 +12,6 @@ namespace server.Services.Implementations;
 
 public class CategoryService(ICategoryRepository categoryRepository) : ICategoryService
 {
-    private readonly ICategoryRepository categoryRepository = categoryRepository;
-
     public async Task<object> GetAll()
     {
         var categories = (await categoryRepository.GetAll()).Select(category => category.AsDto());
