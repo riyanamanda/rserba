@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace server.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace server.Data.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     slug = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     created_at = table.Column<DateTime>(type: "datetime2", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -30,7 +30,7 @@ namespace server.Data.Migrations
             migrationBuilder.InsertData(
                 table: "categories",
                 columns: new[] { "id", "created_at", "name", "slug", "updated_at" },
-                values: new object[] { 1, new DateTime(2024, 9, 16, 1, 14, 14, 827, DateTimeKind.Local).AddTicks(9414), "Kesehatan", "kesehatan", new DateTime(2024, 9, 16, 1, 14, 14, 827, DateTimeKind.Local).AddTicks(9423) });
+                values: new object[] { 1, new DateTime(2024, 9, 22, 2, 33, 53, 406, DateTimeKind.Local).AddTicks(7894), "Kesehatan", "kesehatan", new DateTime(2024, 9, 22, 2, 33, 53, 406, DateTimeKind.Local).AddTicks(7906) });
         }
 
         /// <inheritdoc />

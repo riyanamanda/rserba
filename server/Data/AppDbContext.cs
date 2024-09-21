@@ -6,13 +6,18 @@ namespace server.Data;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Category> Categories { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSnakeCaseNamingConvention();
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder
+            .UseSqlServer()
+            .UseSnakeCaseNamingConvention();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Category>().HasData(
             new
             {
@@ -24,6 +29,4 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             }
         );
     }
-
-
 }

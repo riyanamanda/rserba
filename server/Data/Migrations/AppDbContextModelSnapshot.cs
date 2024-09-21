@@ -22,7 +22,7 @@ namespace server.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("server.Models.Category", b =>
+            modelBuilder.Entity("server.Models.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -38,8 +38,7 @@ namespace server.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("name");
 
                     b.Property<string>("Slug")
@@ -61,10 +60,10 @@ namespace server.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 9, 16, 1, 14, 14, 827, DateTimeKind.Local).AddTicks(9414),
+                            CreatedAt = new DateTime(2024, 9, 22, 2, 33, 53, 406, DateTimeKind.Local).AddTicks(7894),
                             Name = "Kesehatan",
                             Slug = "kesehatan",
-                            UpdatedAt = new DateTime(2024, 9, 16, 1, 14, 14, 827, DateTimeKind.Local).AddTicks(9423)
+                            UpdatedAt = new DateTime(2024, 9, 22, 2, 33, 53, 406, DateTimeKind.Local).AddTicks(7906)
                         });
                 });
 #pragma warning restore 612, 618
