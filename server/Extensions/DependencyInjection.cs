@@ -5,7 +5,7 @@ using server.Repositories.Interfaces;
 using server.Services.Implementations;
 using server.Services.Interfaces;
 
-namespace server.Configurations;
+namespace server.Extensions;
 
 public static class DependencyInjection
 {

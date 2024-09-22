@@ -1,7 +1,6 @@
-using server.Models.DTOs;
 using server.Models.Entities;
 
-namespace server.Models;
+namespace server.Models.DTOs;
 
 public static class ModelExtensions
 {

@@ -1,5 +1,5 @@
 using Carter;
-using server.Configurations;
+using server.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
