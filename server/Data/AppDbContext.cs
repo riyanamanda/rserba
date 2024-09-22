@@ -6,6 +6,7 @@ namespace server.Data;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Category> Categories { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -26,6 +27,15 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 Slug = "kesehatan",
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
+            }
+        );
+        modelBuilder.Entity<User>().HasData(
+            new
+            {
+                Id = 1,
+                Name = "Riyan Amanda",
+                Email = "ryant.n92@gmail.com",
+                Password = "password"
             }
         );
     }

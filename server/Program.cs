@@ -8,6 +8,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCarter();
 builder.Services.AddDbConnection(builder.Configuration)
+                .AddAuth(builder.Configuration)
                 .AddServicesAndRepositories();
 
 var app = builder.Build();

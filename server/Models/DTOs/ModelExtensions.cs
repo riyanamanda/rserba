@@ -14,4 +14,15 @@ public static class ModelExtensions
             category.UpdatedAt
         );
     }
+
+    public static UserDto AsDto(this User user)
+    {
+        return new UserDto(
+            user.Id,
+            user.Name,
+            user.Email,
+            user.CreatedAt,
+            user.UpdatedAt
+        );
+    }
 }
