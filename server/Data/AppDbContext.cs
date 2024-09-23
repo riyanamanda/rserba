@@ -19,24 +19,5 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Category>().HasData(
-            new
-            {
-                Id = 1,
-                Name = "Kesehatan",
-                Slug = "kesehatan",
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
-            }
-        );
-        modelBuilder.Entity<User>().HasData(
-            new
-            {
-                Id = 1,
-                Name = "Riyan Amanda",
-                Email = "ryant.n92@gmail.com",
-                Password = "password"
-            }
-        );
     }
 }

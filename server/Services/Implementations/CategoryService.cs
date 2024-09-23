@@ -49,13 +49,13 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
 
     public async Task<object> FindBySlug(string slug)
     {
-        Category? existingCategory = await categoryRepository.FindBySlug(slug);
-        if (existingCategory is null)
+        Category? category = await categoryRepository.FindBySlug(slug);
+        if (category is null)
         {
             return new Response(HttpStatusCode.UnprocessableEntity, "Category not found!");
         }
 
-        return new DataResponse(HttpStatusCode.OK, "success", existingCategory!);
+        return new DataResponse(HttpStatusCode.OK, "success", category.AsDto());
     }
 
     public async Task<object> Update(string slug, UpdateCategoryDto request)

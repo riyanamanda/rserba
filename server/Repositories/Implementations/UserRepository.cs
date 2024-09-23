@@ -19,4 +19,19 @@ public class UserRepository(AppDbContext dbContext) : IUserRepository
         await dbContext.AddAsync(user);
         await dbContext.SaveChangesAsync();
     }
+
+    public async Task<User?> FindByEmail(string email)
+    {
+        return await dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+    }
+
+    public async Task Update(User user)
+    {
+        await dbContext.SaveChangesAsync();
+    }
+
+    public async Task Delete(string email)
+    {
+        await dbContext.Users.Where(u => u.Email == email).ExecuteDeleteAsync();
+    }
 }

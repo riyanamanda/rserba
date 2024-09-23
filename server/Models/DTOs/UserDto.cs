@@ -13,3 +13,8 @@ public record CreateUserDto(
     string Email,
     string Password
 );
+
+public record UpdateUserDto(
+    string Name,
+    string Email
+);
