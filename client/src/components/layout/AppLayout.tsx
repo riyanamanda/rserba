@@ -4,9 +4,11 @@ import Footer from './Footer';
 
 const AppLayout = ({ children }: PropsWithChildren) => {
     return (
-        <div className='h-full flex flex-col text-slate-900 dark:text-slate-200 bg-white dark:bg-black px-8'>
+        <div className='text-slate-900 dark:text-slate-200 bg-white dark:bg-black min-h-screen'>
             <Header />
-            <main className='h-full flex-1 px-6'>{children}</main>
+            <main className='h-full flex-1 max-w-[84rem] mx-auto'>
+                {children}
+            </main>
             <Footer />
         </div>
     );

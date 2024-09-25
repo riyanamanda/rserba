@@ -10,7 +10,7 @@ export default function Home() {
 
     return (
         <AppLayout>
-            <div className='flex items-center justify-center h-full flex-col space-y-3'>
+            <div className='flex items-center justify-center h-full flex-col space-y-3 bg-white dark:bg-black mt-56'>
                 <h1 className='text-3xl font-semibold mb-5'>
                     Rumah Sakit Ernaldi Bahar
                 </h1>
