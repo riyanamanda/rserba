@@ -3,7 +3,7 @@ import React from 'react';
 
 const Header = () => {
     return (
-        <header className='flex flex-col max-w-[84rem] mx-auto'>
+        <header className='flex flex-col max-w-[84rem] mx-auto border-b border-gray-800 pb-8'>
             <div className='mb-7 flex items-center justify-between pt-5'>
                 <Link href='/'>
                     <h1 className='text-xl'>Logo | RS Ernaldi Bahar</h1>
@@ -93,7 +93,7 @@ const Header = () => {
             </div>
 
             <div className='flex items-center justify-between'>
-                <nav className='text-xs space-x-5 font-medium dark:text-gray-400'>
+                <nav className='text-sm space-x-5 font-medium dark:text-gray-400'>
                     <Link href='/' className='dark:text-gray-200'>
                         Beranda
                     </Link>

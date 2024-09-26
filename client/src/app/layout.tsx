@@ -18,7 +18,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='id'>
-            <body className={`${inter.className} antialiased`}>
+            <body
+                className={`${inter.className} antialiased overflow-x-hidden`}
+            >
                 <ThemeProvider
                     attribute='class'
                     defaultTheme='dark'
