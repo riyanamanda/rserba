@@ -1,12 +1,22 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { ModeToggle } from '../mode-toggle';
 
 const Header = () => {
     return (
-        <header className='flex flex-col max-w-[84rem] mx-auto border-b border-gray-800 pb-8'>
+        <header className='flex flex-col max-w-[84rem] mx-auto border-b border-gray-800 pb-5'>
             <div className='mb-7 flex items-center justify-between pt-5'>
-                <Link href='/'>
-                    <h1 className='text-xl'>Logo | RS Ernaldi Bahar</h1>
+                <Link href='/' className='flex items-center space-x-3'>
+                    <Image
+                        src='/logo.png'
+                        alt='Ernaldi Bahar'
+                        width={50}
+                        height={50}
+                    />
+                    <h1 className='text-2xl font-bold text-gray-700 dark:text-white'>
+                        RS dr. Ernaldi Bahar
+                    </h1>
                 </Link>
 
                 <div className='flex items-start gap-x-12'>
@@ -93,7 +103,7 @@ const Header = () => {
             </div>
 
             <div className='flex items-center justify-between'>
-                <nav className='text-sm space-x-5 font-medium dark:text-gray-400'>
+                <nav className='text-xs space-x-5 font-medium dark:text-gray-400'>
                     <Link href='/' className='dark:text-gray-200'>
                         Beranda
                     </Link>
@@ -104,8 +114,10 @@ const Header = () => {
                     <Link href='/'>Diklat</Link>
                 </nav>
 
-                <div className='space-x-5 text-sm'>
-                    <span>light</span>
+                <div className='space-x-5 text-sm flex items-center'>
+                    <span className='text-xs'>
+                        <ModeToggle />
+                    </span>
                     <span>login</span>
                 </div>
             </div>
