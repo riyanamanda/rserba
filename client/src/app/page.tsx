@@ -4,12 +4,9 @@ import { Features } from '@/components/feature';
 import AppLayout from '@/components/layout/AppLayout';
 import { Spotlight } from '@/components/ui/Spotlight';
 import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
-import { useTheme } from 'next-themes';
+import Image from 'next/image';
 
 export default function Home() {
-    const { theme } = useTheme();
-    console.log(theme);
-
     return (
         <AppLayout>
             {/* Hero */}
@@ -29,8 +26,28 @@ export default function Home() {
                         />
                     </div>
 
-                    <div className='w-6/12 bg-gray-900 flex items-center justify-center'>
-                        right text or photos
+                    <div className='w-6/12 flex items-center h-fit gap-x-2'>
+                        <Image
+                            src='https://images.unsplash.com/photo-1651008376811-b90baee60c1f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                            alt='Dokter'
+                            width={200}
+                            height={100}
+                            className='w-auto h-full rounded-s-lg'
+                        />
+                        <Image
+                            src='https://images.unsplash.com/photo-1651008376811-b90baee60c1f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                            alt='Dokter'
+                            width={200}
+                            height={100}
+                            className='w-auto h-full'
+                        />
+                        <Image
+                            src='https://images.unsplash.com/photo-1651008376811-b90baee60c1f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                            alt='Dokter'
+                            width={200}
+                            height={100}
+                            className='w-auto h-full rounded-e-lg'
+                        />
                     </div>
                 </div>
             </section>
