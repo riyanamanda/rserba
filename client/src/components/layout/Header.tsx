@@ -16,7 +16,7 @@ const Header = () => {
                         className='w-auto'
                     />
                     <h1 className='text-2xl font-bold text-gray-700 dark:text-white'>
-                        RS dr. Ernaldi Bahar
+                        RS Ernaldi Bahar
                     </h1>
                 </Link>
 
@@ -108,11 +108,11 @@ const Header = () => {
                     <Link href='/' className='dark:text-gray-200'>
                         Beranda
                     </Link>
-                    <Link href='/'>Tentang</Link>
-                    <Link href='/'>Layanan</Link>
-                    <Link href='/'>Berita</Link>
-                    <Link href='/'>Informasi</Link>
-                    <Link href='/'>Diklat</Link>
+                    <Link href='/' className='dark:hover:text-gray-200'>Tentang</Link>
+                    <Link href='/' className='dark:hover:text-gray-200'>Layanan</Link>
+                    <Link href='/' className='dark:hover:text-gray-200'>Berita</Link>
+                    <Link href='/' className='dark:hover:text-gray-200'>Informasi</Link>
+                    <Link href='/' className='dark:hover:text-gray-200'>Diklat</Link>
                 </nav>
 
                 <div className='space-x-5 text-sm flex items-center'>

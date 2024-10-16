@@ -22,7 +22,7 @@ export default function Home() {
                         </h2>
 
                         <TextGenerateEffect
-                            words='Temukan lingkungan yang penuh kasih sayang dan pengertian, tempat yang tepat untuk memulai penyembuhan.'
+                            words='Temukan lingkungan yang penuh kasih sayang dan pengertian, tempat yang tepat untuk memulai pemulihan.'
                             className='w-10/12 leading-loose text-white text-2xl'
                             duration={1}
                         />
@@ -92,7 +92,7 @@ export default function Home() {
             {/* Pelayanan */}
             <section>
                 <div className='mb-10 text-center font-medium leading-relaxed'>
-                    <h2 className='text-3xl mb-3'>Pelayanan Poli</h2>
+                    <h2 className='text-3xl mb-3'>Layanan Poli</h2>
                     <p className='max-w-[40rem] mx-auto text-sm text-gray-400 leading-relaxed'>
                         Rumah sakit Ernaldi Bahar dengan tenaga medis yang
                         profesional dan fasilitas yang lengkap, kami siap
