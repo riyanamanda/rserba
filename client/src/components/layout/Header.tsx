@@ -109,10 +109,8 @@ const Header = () => {
                         Beranda
                     </Link>
                     <Link href='/' className='dark:hover:text-gray-200'>Tentang</Link>
-                    <Link href='/' className='dark:hover:text-gray-200'>Layanan</Link>
+                    <Link href='/' className='dark:hover:text-gray-200'>Dokter</Link>
                     <Link href='/' className='dark:hover:text-gray-200'>Berita</Link>
-                    <Link href='/' className='dark:hover:text-gray-200'>Informasi</Link>
-                    <Link href='/' className='dark:hover:text-gray-200'>Diklat</Link>
                 </nav>
 
                 <div className='space-x-5 text-sm flex items-center'>

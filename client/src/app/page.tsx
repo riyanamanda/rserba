@@ -102,6 +102,22 @@ export default function Home() {
 
                 <Features />
             </section>
+
+            {/* Mitra */}
+            <section className='mt-20'>
+                <div className='mb-10 text-center font-medium leading-relaxed'>
+                    <h2 className='text-3xl mb-3'>Kerjasama</h2>
+                    <p className='max-w-[40rem] mx-auto text-sm text-gray-400 leading-relaxed'>
+                        Rumah sakit Ernaldi Bahar bekerjasama dengan beberapa asuransi dan organisasi
+                    </p>
+                </div>
+
+                <div className='flex items-center gap-10 justify-center bg-gray-200 p-3 rounded-lg'>
+                    <Image src='/bpjs.png' alt='bpjs' width={200} height={200} className='w-auto drop-shadow'/>
+                    <Image src='/germas.png' alt='germas' width={100} height={100} className='w-auto drop-shadow'/>
+                    <Image src='/dinkes.png' alt='dinkes' width={150} height={150} className='w-auto drop-shadow'/>
+                </div>
+            </section>
         </AppLayout>
     );
 }
