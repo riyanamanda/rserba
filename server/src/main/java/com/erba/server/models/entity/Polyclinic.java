@@ -16,10 +16,10 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Entity
 @Table(name = "polyclinics")
-public class polyclinic {
+public class Polyclinic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String name;
 
