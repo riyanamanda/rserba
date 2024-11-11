@@ -1,13 +1,14 @@
 package com.erba.server.controller;
 
 import com.erba.server.models.dto.WebDataResponseDto;
+import com.erba.server.models.dto.WebResponseDto;
 import com.erba.server.models.dto.polyclinic.PolyclinicDto;
+import com.erba.server.models.dto.polyclinic.PolyclinicRequestDto;
 import com.erba.server.services.PolyclinicService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +27,18 @@ public class PolyclinicController {
                 .code(HttpStatus.OK.value())
                 .status(HttpStatus.OK.getReasonPhrase())
                 .data(poly)
+                .build();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public WebResponseDto create(@Valid @RequestBody PolyclinicRequestDto request) {
+        polyclinicService.create(request);
+
+        return WebResponseDto.builder()
+                .code(HttpStatus.CREATED.value())
+                .status(HttpStatus.CREATED.getReasonPhrase())
+                .message("Polyclinic created")
                 .build();
     }
 }
