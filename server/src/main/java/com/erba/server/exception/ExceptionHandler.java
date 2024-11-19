@@ -1,6 +1,6 @@
 package com.erba.server.exception;
 
-import com.erba.server.models.dto.ValidationErrorDto;
+import com.erba.server.response.ValidationError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -15,7 +15,7 @@ import java.util.Map;
 public class ExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ValidationErrorDto> handleValidationErrors(MethodArgumentNotValidException exception) {
+    public ResponseEntity<ValidationError> handleValidationErrors(MethodArgumentNotValidException exception) {
         Map<String, String> errors = new HashMap<>();
         exception.getBindingResult().getAllErrors().forEach((error) -> {
             FieldError fe = (FieldError) error;
@@ -24,7 +24,7 @@ public class ExceptionHandler {
 
         return ResponseEntity.status(exception.getStatusCode())
                 .body(
-                        ValidationErrorDto.<String>builder()
+                        ValidationError.<String>builder()
                                 .code(exception.getStatusCode().value())
                                 .status(HttpStatus.BAD_REQUEST.name())
                                 .errors(errors)

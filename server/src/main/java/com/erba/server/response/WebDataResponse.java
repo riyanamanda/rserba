@@ -1,13 +1,13 @@
-package com.erba.server.models.dto;
+package com.erba.server.response;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class ValidationErrorDto {
+public class WebDataResponse {
+
     private Integer code;
     private String status;
-    private Object errors;
+    private Object data;
 }
-
