@@ -7,8 +7,11 @@ import com.erba.server.repository.DoctorRepository;
 import com.erba.server.request.DoctorCreateRequest;
 import com.erba.server.request.DoctorUpdateRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,21 +32,30 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void create(DoctorCreateRequest request) {
-
+        Doctor doctor = new Doctor();
+        doctor.setName(request.getName());
+        doctor.setImageUrl(request.getImageUrl());
+        doctorRepository.save(doctor);
     }
 
     @Override
-    public void update(Doctor doctor, DoctorUpdateRequest request) {
+    public void update(Integer id, DoctorUpdateRequest request) {
+        Doctor doctor = doctorRepository.findById(Long.valueOf(id)).orElseThrow(() -> {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
+        });
 
+        doctor.setName(request.getName());
+        doctor.setImageUrl(request.getImageUrl());
+        doctorRepository.save(doctor);
     }
 
     @Override
-    public DoctorDto findById(Long id) {
+    public DoctorDto findById(Integer id) {
         return null;
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
 
     }
 }
