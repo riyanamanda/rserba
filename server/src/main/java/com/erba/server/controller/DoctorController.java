@@ -56,6 +56,18 @@ public class DoctorController {
         );
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<WebDataResponse> getDoctorById(@PathVariable("id") Integer id) {
+        DoctorDto doctor = doctorService.findById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(WebDataResponse.builder()
+                .code(HttpStatus.OK.value())
+                .status(HttpStatus.OK.getReasonPhrase())
+                .data(doctor)
+                .build()
+        );
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<WebResponse> delete(@PathVariable("id") Integer id) {
         doctorService.delete(id);

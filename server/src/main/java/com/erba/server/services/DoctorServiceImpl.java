@@ -49,7 +49,17 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public DoctorDto findById(Integer id) {
-        return null;
+        Doctor doctor = doctorRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
+
+        return DoctorDto.builder()
+                .id(doctor.getId())
+                .name(doctor.getName())
+                .imageUrl(doctor.getImageUrl())
+                .isActive(doctor.getIsActive())
+                .createdAt(doctor.getCreatedAt())
+                .updatedAt(doctor.getUpdatedAt())
+                .build();
     }
 
     @Override
