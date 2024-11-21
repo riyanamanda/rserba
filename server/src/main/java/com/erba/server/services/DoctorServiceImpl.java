@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,9 +39,8 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void update(Integer id, DoctorUpdateRequest request) {
-        Doctor doctor = doctorRepository.findById(Long.valueOf(id)).orElseThrow(() -> {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
-        });
+        Doctor doctor = doctorRepository.findById(Long.valueOf(id)).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
 
         doctor.setName(request.getName());
         doctor.setImageUrl(request.getImageUrl());
