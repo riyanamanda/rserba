@@ -45,7 +45,7 @@ public class DoctorController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<WebResponse> update(@Valid @PathVariable("id") Integer id , @RequestBody DoctorUpdateRequest request) {
+    public ResponseEntity<WebResponse> update(@Valid @PathVariable("id") Integer id, @RequestBody DoctorUpdateRequest request) {
         doctorService.update(id, request);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(WebResponse.builder()
@@ -56,4 +56,15 @@ public class DoctorController {
         );
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<WebResponse> delete(@PathVariable("id") Integer id) {
+        doctorService.delete(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(WebResponse.builder()
+                .code(HttpStatus.OK.value())
+                .status(HttpStatus.OK.getReasonPhrase())
+                .message("Doctor deleted")
+                .build()
+        );
+    }
 }

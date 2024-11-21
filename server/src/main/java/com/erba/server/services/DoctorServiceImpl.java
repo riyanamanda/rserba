@@ -54,6 +54,9 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void delete(Integer id) {
+        Doctor doctor = doctorRepository.findById(Long.valueOf(id)).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
 
+        doctorRepository.delete(doctor);
     }
 }
