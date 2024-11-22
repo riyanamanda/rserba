@@ -1,5 +1,6 @@
 package com.erba.server.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -17,5 +18,6 @@ public class DoctorCreateRequest {
     @NotNull(message = "Doctor name is required")
     private String name;
 
+    @JsonProperty("image_url")
     private String imageUrl;
 }

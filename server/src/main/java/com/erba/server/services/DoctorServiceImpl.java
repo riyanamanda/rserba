@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,11 +40,15 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void update(Integer id, DoctorUpdateRequest request) {
-        Doctor doctor = doctorRepository.findById(Long.valueOf(id)).orElseThrow(() ->
+        Doctor doctor = doctorRepository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
 
+        String imageUrl = (Objects.isNull(request.getImageUrl())) ? doctor.getImageUrl() : request.getImageUrl();
+        Boolean isActive = (Objects.isNull(request.getIsActive())) ? doctor.getIsActive() : request.getIsActive();
+
         doctor.setName(request.getName());
-        doctor.setImageUrl(request.getImageUrl());
+        doctor.setImageUrl(imageUrl);
+        doctor.setIsActive(isActive);
         doctorRepository.save(doctor);
     }
 
@@ -64,7 +69,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void delete(Integer id) {
-        Doctor doctor = doctorRepository.findById(Long.valueOf(id)).orElseThrow(() ->
+        Doctor doctor = doctorRepository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
 
         doctorRepository.delete(doctor);

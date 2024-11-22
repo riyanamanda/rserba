@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 public class DoctorDto {
 
-    private long id;
+    private Integer id;
     private String name;
 
     @JsonProperty("image_url")
