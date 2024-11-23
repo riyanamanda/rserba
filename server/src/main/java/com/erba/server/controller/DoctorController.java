@@ -6,13 +6,16 @@ import com.erba.server.request.DoctorUpdateRequest;
 import com.erba.server.response.WebDataResponse;
 import com.erba.server.response.WebResponse;
 import com.erba.server.services.DoctorService;
+import com.erba.server.services.FileService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -21,9 +24,10 @@ import java.util.List;
 public class DoctorController {
 
     private final DoctorService doctorService;
+    private final FileService fileService;
 
     @GetMapping
-    public ResponseEntity<WebDataResponse> getDoctor() {
+    public ResponseEntity<WebDataResponse> findAll() {
         List<DoctorDto> doctors = doctorService.findAll();
 
         return ResponseEntity.status(HttpStatus.OK).body(WebDataResponse.builder()
@@ -76,6 +80,18 @@ public class DoctorController {
                 .code(HttpStatus.OK.value())
                 .status(HttpStatus.OK.getReasonPhrase())
                 .message("Doctor deleted")
+                .build()
+        );
+    }
+
+    @PostMapping("{id}/upload")
+    public ResponseEntity<WebResponse> uploadDoctorImage(@PathVariable("id") Integer id, @RequestPart MultipartFile image) throws IOException {
+        fileService.uploadDoctorImage(id, image);
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(WebResponse.builder()
+                .code(HttpStatus.ACCEPTED.value())
+                .status(HttpStatus.ACCEPTED.getReasonPhrase())
+                .message("Image uploaded")
                 .build()
         );
     }

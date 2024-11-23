@@ -25,6 +25,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public List<DoctorDto> findAll() {
         List<Doctor> doctors = doctorRepository.findAll();
+
         return doctors.stream()
                 .map(doctorMapper)
                 .collect(Collectors.toList());
@@ -34,7 +35,6 @@ public class DoctorServiceImpl implements DoctorService {
     public void create(DoctorCreateRequest request) {
         Doctor doctor = new Doctor();
         doctor.setName(request.getName());
-        doctor.setImageUrl(request.getImageUrl());
         doctorRepository.save(doctor);
     }
 
@@ -43,11 +43,9 @@ public class DoctorServiceImpl implements DoctorService {
         Doctor doctor = doctorRepository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
 
-        String imageUrl = (Objects.isNull(request.getImageUrl())) ? doctor.getImageUrl() : request.getImageUrl();
         Boolean isActive = (Objects.isNull(request.getIsActive())) ? doctor.getIsActive() : request.getIsActive();
 
         doctor.setName(request.getName());
-        doctor.setImageUrl(imageUrl);
         doctor.setIsActive(isActive);
         doctorRepository.save(doctor);
     }

@@ -1,7 +1,7 @@
 spring:
     servlet:
-      multipart:
-          max-file-size: 10MB
+        multipart:
+            max-file-size: 10MB
     profiles:
         active: ${ACTIVE_PROFILE:dev}
     datasource:
@@ -18,13 +18,18 @@ spring:
         hibernate:
             ddl-auto: validate
         properties:
-          hibernate:
-              dialect: org.hibernate.dialect.PostgreSQLDialect
-              format_sql: true
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+                format_sql: true
     flyway:
         enabled: true
         locations: classpath:db/migrations
 
 server:
-  servlet:
-      context-path: /api/
+    servlet:
+        context-path: /api/
+
+project:
+    doctor_image: server/images/doctor/
+base:
+    url: ${BASE_URL}

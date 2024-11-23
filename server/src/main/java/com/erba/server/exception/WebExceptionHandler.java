@@ -16,7 +16,6 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class WebExceptionHandler {
-
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<WebResponse> apiResponse(ResponseStatusException exception) {
         return ResponseEntity.status(exception.getStatusCode()).body(
