@@ -43,9 +43,11 @@ public class DoctorServiceImpl implements DoctorService {
         Doctor doctor = doctorRepository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
 
+        String imageUrl = (Objects.isNull(request.getImageUrl())) ? doctor.getImageUrl() : request.getImageUrl();
         Boolean isActive = (Objects.isNull(request.getIsActive())) ? doctor.getIsActive() : request.getIsActive();
 
         doctor.setName(request.getName());
+        doctor.setImageUrl(imageUrl);
         doctor.setIsActive(isActive);
         doctorRepository.save(doctor);
     }

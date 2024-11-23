@@ -17,7 +17,7 @@ public class DoctorMapper implements Function<Doctor, DoctorDto> {
 
     @Override
     public DoctorDto apply(Doctor doctor) {
-        String imageUrl = baseUrl + "/" + path + doctor.getImageUrl();
+        String imageUrl = baseUrl + "/" + doctor.getImageUrl();
         String image = doctor.getImageUrl() == null ? null : imageUrl;
 
         return new DoctorDto(

@@ -10,6 +10,7 @@ import com.erba.server.services.FileService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -94,5 +95,14 @@ public class DoctorController {
                 .message("Image uploaded")
                 .build()
         );
+    }
+
+    @GetMapping("{id}/download")
+    public ResponseEntity<?> getDoctorImage(@PathVariable("id") Integer id) throws IOException {
+        byte[] image = fileService.downloadDoctorImage(id);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf("image/png"))
+                .body(image);
     }
 }

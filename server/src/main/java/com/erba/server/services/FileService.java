@@ -12,4 +12,5 @@ import java.io.IOException;
 public interface FileService {
 
     void uploadDoctorImage(Integer id, MultipartFile image) throws IOException;
+    byte[] downloadDoctorImage(Integer id) throws IOException;
 }
