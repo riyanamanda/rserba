@@ -25,15 +25,14 @@ import java.nio.file.StandardCopyOption;
 @Service
 @RequiredArgsConstructor
 public class FileServiceImpl implements FileService {
+    private final DoctorService doctorService;
     @Value("${project.doctor_image}")
     private String path;
-
-    private final DoctorService doctorService;
 
     @Override
     @Transactional
     public void uploadDoctorImage(Integer id, MultipartFile image) throws IOException {
-        String filename = image.getOriginalFilename();
+        String filename = id + "-" + image.getOriginalFilename();
         String filepath = path + File.separator + filename;
         File f = new File(path);
         System.out.println(filepath);
@@ -62,8 +61,6 @@ public class FileServiceImpl implements FileService {
         if (doctor == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found");
         String filePath = doctor.getImageUrl();
 
-        byte[] image = Files.readAllBytes(Paths.get(filePath));
-
-        return image;
+        return Files.readAllBytes(Paths.get(filePath));
     }
 }

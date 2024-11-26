@@ -7,7 +7,6 @@ import com.erba.server.request.DoctorUpdateRequest;
 import java.util.List;
 
 public interface DoctorService {
-
     List<DoctorDto> findAll();
 
     void create(DoctorCreateRequest request);
