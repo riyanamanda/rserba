@@ -5,7 +5,6 @@ import {
     NavigationMenu,
     NavigationMenuContent,
     NavigationMenuItem,
-    NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
 } from '../ui/navigation-menu';
@@ -34,10 +33,11 @@ const Header = () => {
                 <NavigationMenu>
                     <NavigationMenuList className='gap-5'>
                         <NavigationMenuItem>
-                            <NavLink to='/' className='hover:text-primary'>
-                                <NavigationMenuLink className='hover:text-primary transition-colors duration-100'>
-                                    Beranda
-                                </NavigationMenuLink>
+                            <NavLink
+                                to='/'
+                                className='hover:text-primary transition-colors duration-100'
+                            >
+                                Beranda
                             </NavLink>
                         </NavigationMenuItem>
 
@@ -48,63 +48,63 @@ const Header = () => {
                             <NavigationMenuContent>
                                 <ul className='grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]'>
                                     <li>
-                                        <NavigationMenuLink asChild>
-                                            <NavLink
-                                                to='#'
-                                                className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
-                                            >
-                                                <div className='text-sm font-medium leading-none'>
-                                                    Visi dan Misi
-                                                </div>
-                                                <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
-                                                    Meingkatkan mutu pelayanan
-                                                    kesehatan.
-                                                </p>
-                                            </NavLink>
-                                        </NavigationMenuLink>
+                                        <NavLink
+                                            to='#'
+                                            className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
+                                        >
+                                            <div className='text-sm font-medium leading-none'>
+                                                Visi dan Misi
+                                            </div>
+                                            <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
+                                                Meingkatkan mutu pelayanan
+                                                kesehatan.
+                                            </p>
+                                        </NavLink>
                                     </li>
 
                                     <li>
-                                        <NavigationMenuLink asChild>
-                                            <NavLink
-                                                to='#'
-                                                className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
-                                            >
-                                                <div className='text-sm font-medium leading-none'>
-                                                    Struktur Organisasi
-                                                </div>
-                                                <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
-                                                    Struktur pemerintahan di
-                                                    rumah sakit ernaldi bahar
-                                                </p>
-                                            </NavLink>
-                                        </NavigationMenuLink>
+                                        <NavLink
+                                            to='#'
+                                            className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
+                                        >
+                                            <div className='text-sm font-medium leading-none'>
+                                                Struktur Organisasi
+                                            </div>
+                                            <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
+                                                Struktur pemerintahan di rumah
+                                                sakit ernaldi bahar
+                                            </p>
+                                        </NavLink>
                                     </li>
                                 </ul>
                             </NavigationMenuContent>
                         </NavigationMenuItem>
 
                         <NavigationMenuItem>
-                            <NavLink to='/' className='hover:text-primary'>
-                                <NavigationMenuLink className='hover:text-primary transition-colors duration-100'>
-                                    Layanan
-                                </NavigationMenuLink>
+                            <NavLink
+                                to='/'
+                                className='hover:text-primary transition-colors duration-100'
+                            >
+                                Layanan
                             </NavLink>
                         </NavigationMenuItem>
 
                         <NavigationMenuItem>
-                            <NavLink to='/' className='hover:text-primary'>
-                                <NavigationMenuLink className='hover:text-primary transition-colors duration-100'>
-                                    Berita
-                                </NavigationMenuLink>
+                            <NavLink
+                                to='/'
+                                className='hover:text-primary transition-colors duration-100'
+                            >
+                                Berita
                             </NavLink>
                         </NavigationMenuItem>
 
                         <NavigationMenuItem>
-                            <a href="https://bed.rs-erba.go.id/" target="_blank" rel="noopener noreferrer">
-                            <NavigationMenuLink className='hover:text-primary transition-colors duration-100'>
+                            <a
+                                href='https://bed.rs-erba.go.id/'
+                                className='hover:text-primary transition-colors duration-100'
+                                target='_blank'
+                            >
                                 Tempat Tidur
-                            </NavigationMenuLink>
                             </a>
                         </NavigationMenuItem>
                     </NavigationMenuList>
@@ -114,7 +114,9 @@ const Header = () => {
             <div className='ml-auto flex items-center justify-end space-x-3 w-2/12'>
                 <ModeToggle />
 
-                <Button variant={'ghost'}>Login</Button>
+                <NavLink to='#'>
+                    <Button variant={'ghost'}>Login</Button>
+                </NavLink>
             </div>
         </header>
     );
