@@ -31,7 +31,9 @@ const AppLayout = ({
 
             <div className='flex flex-col min-h-svh'>
                 <Header />
-                <main className='w-full flex-1 bg-background text-foreground max-w-[90rem] mx-auto'>{children}</main>
+                <main className='w-full flex-1 bg-background text-foreground max-w-[90rem] mx-auto'>
+                    {children}
+                </main>
                 <Footer />
             </div>
         </>
