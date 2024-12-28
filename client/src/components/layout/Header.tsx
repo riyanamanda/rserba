@@ -97,16 +97,6 @@ const Header = () => {
                                 Berita
                             </NavLink>
                         </NavigationMenuItem>
-
-                        <NavigationMenuItem>
-                            <a
-                                href='https://bed.rs-erba.go.id/'
-                                className='hover:text-primary transition-colors duration-100'
-                                target='_blank'
-                            >
-                                Tempat Tidur
-                            </a>
-                        </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>
             </div>
@@ -114,8 +104,12 @@ const Header = () => {
             <div className='ml-auto flex items-center justify-end space-x-3 w-2/12'>
                 <ModeToggle />
 
-                <NavLink to='#'>
+                {/* <NavLink to='/login'>
                     <Button variant={'ghost'}>Login</Button>
+                </NavLink> */}
+
+                <NavLink to='/admin'>
+                    <Button variant={'ghost'}>Dashboard</Button>
                 </NavLink>
             </div>
         </header>
