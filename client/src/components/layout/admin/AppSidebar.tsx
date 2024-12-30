@@ -1,15 +1,4 @@
-import {
-    ChevronRight,
-    ChevronsUpDown,
-    Gauge,
-    GraduationCap,
-    LayoutGrid,
-    LogOut,
-    Newspaper,
-    SquareUser,
-    User,
-    UserPen
-} from 'lucide-react';
+import { ChevronRight, ChevronsUpDown, Gauge, GraduationCap, LayoutGrid, LogOut, Newspaper, SquareUser, User, UserPen } from 'lucide-react';
 import * as React from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -154,8 +143,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarMenu>
                         <SidebarMenuItem>
                             <SidebarMenuButton asChild>
-                                <a href="#">
-                                    <SquareUser/>
+                                <a href='#'>
+                                    <SquareUser />
                                     Users
                                 </a>
                             </SidebarMenuButton>
@@ -192,17 +181,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                     <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
                                         <Avatar className='h-8 w-8 rounded-lg'>
                                             <AvatarImage src='#' alt='Riyan Amanda' />
-                                            <AvatarFallback className='rounded-lg'>
-                                                RA
-                                            </AvatarFallback>
+                                            <AvatarFallback className='rounded-lg'>RA</AvatarFallback>
                                         </Avatar>
                                         <div className='grid flex-1 text-left text-sm leading-tight'>
-                                            <span className='truncate font-semibold'>
-                                                Riyan Amanda
-                                            </span>
-                                            <span className='truncate text-xs'>
-                                                admin@email.com
-                                            </span>
+                                            <span className='truncate font-semibold'>Riyan Amanda</span>
+                                            <span className='truncate text-xs'>admin@email.com</span>
                                         </div>
                                     </div>
                                 </DropdownMenuLabel>
