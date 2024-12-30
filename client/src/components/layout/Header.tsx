@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router';
-import { ModeToggle } from '../mode-toggle';
+import { ModeToggle } from '../ModeToggle';
 import { Button } from '../ui/button';
 import {
     NavigationMenu,
@@ -13,16 +13,8 @@ const Header = () => {
     return (
         <header className='w-full flex items-center py-5 px-8 border-b'>
             <div className='w-2/12'>
-                <NavLink
-                    to='/'
-                    className='flex items-center w-fit space-x-3 group'
-                >
-                    <img
-                        src='/src/assets/logo.svg'
-                        alt='Ernaldi Bahar'
-                        width={50}
-                        height={50}
-                    />
+                <NavLink to='/' className='flex items-center w-fit space-x-3 group'>
+                    <img src='/src/assets/logo.svg' alt='Ernaldi Bahar' width={50} height={50} />
                     <h1 className='text-xl font-bold tracking-tight group-hover:text-primary transition-colors duration-100'>
                         RS Ernaldi Bahar
                     </h1>
@@ -35,8 +27,7 @@ const Header = () => {
                         <NavigationMenuItem>
                             <NavLink
                                 to='/'
-                                className='hover:text-primary transition-colors duration-100'
-                            >
+                                className='hover:text-primary transition-colors duration-100'>
                                 Beranda
                             </NavLink>
                         </NavigationMenuItem>
@@ -50,14 +41,12 @@ const Header = () => {
                                     <li>
                                         <NavLink
                                             to='#'
-                                            className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
-                                        >
+                                            className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'>
                                             <div className='text-sm font-medium leading-none'>
                                                 Visi dan Misi
                                             </div>
                                             <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
-                                                Meingkatkan mutu pelayanan
-                                                kesehatan.
+                                                Meingkatkan mutu pelayanan kesehatan.
                                             </p>
                                         </NavLink>
                                     </li>
@@ -65,14 +54,12 @@ const Header = () => {
                                     <li>
                                         <NavLink
                                             to='#'
-                                            className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
-                                        >
+                                            className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'>
                                             <div className='text-sm font-medium leading-none'>
                                                 Struktur Organisasi
                                             </div>
                                             <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
-                                                Struktur pemerintahan di rumah
-                                                sakit ernaldi bahar
+                                                Struktur pemerintahan di rumah sakit ernaldi bahar
                                             </p>
                                         </NavLink>
                                     </li>
@@ -83,8 +70,7 @@ const Header = () => {
                         <NavigationMenuItem>
                             <NavLink
                                 to='/'
-                                className='hover:text-primary transition-colors duration-100'
-                            >
+                                className='hover:text-primary transition-colors duration-100'>
                                 Layanan
                             </NavLink>
                         </NavigationMenuItem>
@@ -92,8 +78,7 @@ const Header = () => {
                         <NavigationMenuItem>
                             <NavLink
                                 to='/'
-                                className='hover:text-primary transition-colors duration-100'
-                            >
+                                className='hover:text-primary transition-colors duration-100'>
                                 Berita
                             </NavLink>
                         </NavigationMenuItem>

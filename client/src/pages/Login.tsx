@@ -1,11 +1,5 @@
 import { Button } from '@/components/ui/button';
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { NavLink } from 'react-router';
@@ -17,13 +11,8 @@ const Login = () => {
                 <div className='flex flex-col gap-6'>
                     <Card>
                         <CardHeader>
-                            <div className='flex items-center justify-between'>
-                                <CardTitle className='text-2xl'>
-                                    Login
-                                </CardTitle>
-                                <NavLink to='/' className='text-sm'>
-                                    <Button variant='link'>Beranda</Button>
-                                </NavLink>
+                            <div className='flex'>
+                                <CardTitle className='text-2xl'>Login</CardTitle>
                             </div>
                             <CardDescription>
                                 Silahkan masukan email dan password anda
@@ -45,22 +34,15 @@ const Login = () => {
 
                                     <div className='grid gap-2'>
                                         <div className='flex items-center'>
-                                            <Label htmlFor='password'>
-                                                Password
-                                            </Label>
+                                            <Label htmlFor='password'>Password</Label>
                                             <a
                                                 href='#'
-                                                className='ml-auto inline-block text-sm underline-offset-4 hover:underline'
-                                            >
+                                                className='ml-auto inline-block text-sm underline-offset-4 hover:underline'>
                                                 Forgot your password?
                                             </a>
                                         </div>
 
-                                        <Input
-                                            id='password'
-                                            type='password'
-                                            required
-                                        />
+                                        <Input id='password' type='password' required />
                                     </div>
 
                                     <Button type='submit' className='w-full'>
@@ -68,9 +50,14 @@ const Login = () => {
                                     </Button>
                                 </div>
 
-                                <div className='mt-4 text-center text-sm'>
-                                    Belum punya akun? <br /> Hubungi IT untuk
-                                    mendapatkan akun.
+                                <div className='mt-4 text-center text-[12px] leading-relaxed'>
+                                    <NavLink
+                                        to='/'
+                                        replace={true}
+                                        className='font-medium text-primary'>
+                                        Kembali
+                                    </NavLink>{' '}
+                                    - Belum punya akun? <br /> Hubungi IT untuk mendapatkan akun.
                                 </div>
                             </form>
                         </CardContent>

@@ -9,12 +9,7 @@ type AppLayoutProps = {
     children: React.ReactNode;
 };
 
-const AppLayout = ({
-    title,
-    description,
-    canonical,
-    children,
-}: AppLayoutProps) => {
+const AppLayout = ({ title, description, canonical, children }: AppLayoutProps) => {
     const desc =
         'Pemulihan adalah sebuah perjalanan, kami menemani Anda setiap langkahnya. Dengan perawatan tepat dan dukungan kuat, Anda akan merasakan perubahan positif dalam hidup.';
 
@@ -23,10 +18,7 @@ const AppLayout = ({
             <Helmet>
                 <title>{title} - Ernaldi Bahar</title>
                 <meta name='description' content={description ?? desc} />
-                <link
-                    rel='canonical'
-                    href={import.meta.env.VITE_APP_URL + (canonical ?? '')}
-                />
+                <link rel='canonical' href={import.meta.env.VITE_APP_URL + (canonical ?? '')} />
             </Helmet>
 
             <div className='flex flex-col min-h-svh'>
