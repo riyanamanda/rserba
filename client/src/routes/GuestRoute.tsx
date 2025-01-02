@@ -4,19 +4,20 @@ import About from '@/pages/About';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import { Route, Routes } from 'react-router';
+import ProtectedRoute from './ProtectedRoute';
 
-const AppRoute = () => {
+export default function GuestRoute() {
     return (
         <Routes>
             <Route index element={<Home />} />
             <Route path='about' element={<About />} />
             <Route path='login' element={<Login />} />
 
-            <Route path='admin' element={<CmsLayout />}>
-                <Route index element={<Dashboard />} />
+            <Route element={<ProtectedRoute />}>
+                <Route path='admin' element={<CmsLayout />}>
+                    <Route index element={<Dashboard />} />
+                </Route>
             </Route>
         </Routes>
     );
-};
-
-export default AppRoute;
+}

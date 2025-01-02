@@ -16,7 +16,7 @@ const AppLayout = ({ title, description, canonical, children }: AppLayoutProps) 
     return (
         <>
             <Helmet>
-                <title>{title} - Ernaldi Bahar</title>
+                <title>{title} - RS Ernaldi Bahar</title>
                 <meta name='description' content={description ?? desc} />
                 <link rel='canonical' href={import.meta.env.VITE_APP_URL + (canonical ?? '')} />
             </Helmet>
