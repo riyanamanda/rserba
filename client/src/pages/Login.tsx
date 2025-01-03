@@ -2,9 +2,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { setUserData } from '@/state/auth/authSlice';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { NavLink } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router';
 import { z } from 'zod';
 
 const formSchema = z.object({
@@ -13,6 +15,9 @@ const formSchema = z.object({
 });
 
 const Login = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -21,9 +26,11 @@ const Login = () => {
         },
     });
 
-    const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async () => {
+    const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
         try {
             await new Promise((resolve) => setTimeout(resolve, 1000));
+            dispatch(setUserData({ email: data.email, role: 'ADMIN', token: '123456' }));
+            navigate('/admin', { replace: true });
         } catch (error) {
             console.log(error);
         }
@@ -49,7 +56,7 @@ const Login = () => {
                                             <FormItem>
                                                 <FormLabel>Email</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder='your@email.com' {...field} />
+                                                    <Input type='text' placeholder='your@email.com' {...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -68,7 +75,7 @@ const Login = () => {
                                                     </a>
                                                 </div>
                                                 <FormControl>
-                                                    <Input {...field} />
+                                                    <Input type='password' {...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>

@@ -28,10 +28,15 @@ import {
     SidebarMenuSubItem,
     useSidebar,
 } from '@/components/ui/sidebar';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router';
+import { clearUserData } from '@/state/auth/authSlice';
+import { RootState } from '@/state/store';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const { isMobile } = useSidebar();
+    const user = useSelector((state: RootState) => state.auth);
+    const dispatch = useDispatch();
 
     return (
         <Sidebar variant='inset' {...props}>
@@ -86,7 +91,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             <SidebarMenuButton asChild>
                                 <a href='#'>
                                     <LayoutGrid />
-                                    <span>Category</span>
+                                    <span>Categories</span>
                                 </a>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
@@ -167,7 +172,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                     </Avatar>
                                     <div className='grid flex-1 text-left text-sm leading-tight'>
                                         <span className='truncate font-semibold'>Riyan Amanda</span>
-                                        <span className='truncate text-xs'>admin@email.com</span>
+                                        <span className='truncate text-xs'>{user.email}</span>
+                                        <div className='truncate text-xs'>
+                                            Logged as <span className='font-bold text-primary'>{user.role?.toLocaleLowerCase()}</span>
+                                        </div>
                                     </div>
                                     <ChevronsUpDown className='ml-auto size-4' />
                                 </SidebarMenuButton>
@@ -197,7 +205,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                     </DropdownMenuItem>
                                 </DropdownMenuGroup>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => dispatch(clearUserData())} className='cursor-pointer'>
                                     <LogOut />
                                     Log out
                                 </DropdownMenuItem>

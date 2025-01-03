@@ -9,7 +9,7 @@ function Home() {
     const dispatch = useDispatch();
 
     return (
-        <AppLayout title='Home'>
+        <AppLayout>
             <div className='flex flex-col items-center justify-center h-full mt-32'>
                 <div className='font-extrabold flex flex-col items-center gap-5'>
                     <p>Counter</p>

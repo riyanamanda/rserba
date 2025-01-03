@@ -48,7 +48,7 @@ importers:
                 version: 0.7.1
             client:
                 specifier: 'file:'
-                version: erba@file:(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(tailwindcss@3.4.17)
+                version: erba@file:(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(redux@5.0.1)(tailwindcss@3.4.17)
             clsx:
                 specifier: ^2.1.1
                 version: 2.1.1
@@ -57,7 +57,7 @@ importers:
                 version: 16.4.7
             erba:
                 specifier: 'file:'
-                version: file:(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(tailwindcss@3.4.17)
+                version: file:(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(redux@5.0.1)(tailwindcss@3.4.17)
             lucide-react:
                 specifier: ^0.469.0
                 version: 0.469.0(react@18.3.1)
@@ -79,6 +79,9 @@ importers:
             react-router:
                 specifier: ^7.1.1
                 version: 7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+            react-toastify:
+                specifier: ^11.0.2
+                version: 11.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
             tailwind-merge:
                 specifier: ^2.6.0
                 version: 2.6.0
@@ -1788,6 +1791,12 @@ packages:
             '@types/react':
                 optional: true
 
+    react-toastify@11.0.2:
+        resolution: { integrity: sha512-GjHuGaiXMvbls3ywqv8XdWONwrcO4DXCJIY1zVLkHU73gEElKvTTXNI5Vom3s/k/M8hnkrfsqgBSX3OwmlonbA== }
+        peerDependencies:
+            react: ^18 || ^19
+            react-dom: ^18 || ^19
+
     react@18.3.1:
         resolution: { integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ== }
         engines: { node: '>=0.10.0' }
@@ -3113,7 +3122,7 @@ snapshots:
 
     emoji-regex@9.2.2: {}
 
-    erba@file:(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(tailwindcss@3.4.17):
+    erba@file:(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(redux@5.0.1)(tailwindcss@3.4.17):
         dependencies:
             '@hookform/resolvers': 3.9.1(react-hook-form@7.54.2(react@18.3.1))
             '@radix-ui/react-avatar': 1.1.2(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3125,6 +3134,7 @@ snapshots:
             '@radix-ui/react-separator': 1.1.1(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
             '@radix-ui/react-slot': 1.1.1(@types/react@18.3.18)(react@18.3.1)
             '@radix-ui/react-tooltip': 1.1.6(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+            '@reduxjs/toolkit': 2.5.0(react-redux@9.2.0(@types/react@18.3.18)(react@18.3.1)(redux@5.0.1))(react@18.3.1)
             axios: 1.7.9
             class-variance-authority: 0.7.1
             clsx: 2.1.1
@@ -3134,6 +3144,7 @@ snapshots:
             react-dom: 18.3.1(react@18.3.1)
             react-helmet-async: 2.0.5(react@18.3.1)
             react-hook-form: 7.54.2(react@18.3.1)
+            react-redux: 9.2.0(@types/react@18.3.18)(react@18.3.1)(redux@5.0.1)
             react-router: 7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
             tailwind-merge: 2.6.0
             tailwindcss-animate: 1.0.7(tailwindcss@3.4.17)
@@ -3142,6 +3153,7 @@ snapshots:
             - '@types/react'
             - '@types/react-dom'
             - debug
+            - redux
             - tailwindcss
 
     esbuild@0.24.2:
@@ -3637,6 +3649,12 @@ snapshots:
             tslib: 2.8.1
         optionalDependencies:
             '@types/react': 18.3.18
+
+    react-toastify@11.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+        dependencies:
+            clsx: 2.1.1
+            react: 18.3.1
+            react-dom: 18.3.1(react@18.3.1)
 
     react@18.3.1:
         dependencies:
