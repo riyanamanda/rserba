@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import useAuth from '@/hooks/useAuth';
 import { RootState } from '@/state/store';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
@@ -20,6 +20,7 @@ const formSchema = z.object({
 const Login = () => {
     const isLogged = useSelector((state: RootState) => state.auth.isAuthenticated);
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const { login } = useAuth();
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -31,7 +32,7 @@ const Login = () => {
     });
 
     const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (data) => {
-        login(data, form);
+        login(data, form, setIsLoading);
     };
 
     useEffect(() => {
@@ -91,7 +92,7 @@ const Login = () => {
                                         />
 
                                         <Button type='submit' className='w-full'>
-                                            {form.formState.isSubmitting ? 'Loading ...' : 'Login'}
+                                            {isLoading ? 'Loading ...' : 'Login'}
                                         </Button>
 
                                         <div className='mt-4 text-center text-[12px] leading-relaxed'>

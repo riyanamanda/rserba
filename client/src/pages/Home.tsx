@@ -12,7 +12,7 @@ const Home = () => {
                 <div className='w-6/12 pl-24 space-y-5 h-full'>
                     <p className='flex items-center  gap-3 text-xs font-semibold w-fit rounded-full px-3 py-1 bg-accent text-accent-foreground'>
                         <Megaphone width={18} height={18} className='animate-bounce text-primary' />
-                        <span>Pelayanan: senin - jumat | dari jam 7.30 - 15.00</span>
+                        <span>Pelayanan: senin - jumat dari jam 7.30 - 15.00 | IGD 24 Jam</span>
                     </p>
 
                     <TypingEffect text='Pemulihan adalah sebuah perjalanan' />

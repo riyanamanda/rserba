@@ -22,7 +22,13 @@ const useAuth = () => {
         return response;
     };
 
-    const login = async (data: DataProps, form: { setError: (field: 'email' | 'password', error: { message: string }) => void }) => {
+    const login = async (
+        data: DataProps,
+        form: { setError: (field: 'email' | 'password', error: { message: string }) => void },
+        setIsLoading: (arg: boolean) => void
+    ) => {
+        setIsLoading(true);
+
         await client
             .post('/api/login', data)
             .then(async (response) => {
@@ -44,6 +50,9 @@ const useAuth = () => {
                         })
                     );
                 }
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
     };
 
