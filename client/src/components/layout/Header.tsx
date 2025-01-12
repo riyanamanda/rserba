@@ -33,7 +33,7 @@ const Header = () => {
                                 <ul className='grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]'>
                                     <li>
                                         <NavLink
-                                            to='#'
+                                            to='/visi-misi'
                                             className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'>
                                             <div className='text-sm font-medium leading-none'>Visi dan Misi</div>
                                             <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
@@ -44,7 +44,7 @@ const Header = () => {
 
                                     <li>
                                         <NavLink
-                                            to='#'
+                                            to='/struktur-organisasi'
                                             className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'>
                                             <div className='text-sm font-medium leading-none'>Struktur Organisasi</div>
                                             <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
@@ -57,13 +57,13 @@ const Header = () => {
                         </NavigationMenuItem>
 
                         <NavigationMenuItem>
-                            <NavLink to='/' className='hover:text-primary transition-colors duration-100'>
+                            <NavLink to='/layanan' className='hover:text-primary transition-colors duration-100'>
                                 Layanan
                             </NavLink>
                         </NavigationMenuItem>
 
                         <NavigationMenuItem>
-                            <NavLink to='/' className='hover:text-primary transition-colors duration-100'>
+                            <NavLink to='/berita' className='hover:text-primary transition-colors duration-100'>
                                 Berita
                             </NavLink>
                         </NavigationMenuItem>

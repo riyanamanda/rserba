@@ -1,9 +1,12 @@
 import CmsLayout from '@/components/layout/admin/CmsLayout';
 import useAuth from '@/hooks/useAuth';
-import About from '@/pages/About';
 import Dashboard from '@/pages/admin/Dashboard';
+import Berita from '@/pages/Berita';
 import Home from '@/pages/Home';
+import Layanan from '@/pages/Layanan';
 import Login from '@/pages/Login';
+import StrukturOrganisasi from '@/pages/StrukturOrganisasi';
+import VisiMisi from '@/pages/VisiMisi';
 import { setUserData } from '@/state/auth/authSlice';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -32,7 +35,10 @@ export default function GuestRoute() {
     return (
         <Routes>
             <Route index element={<Home />} />
-            <Route path='about' element={<About />} />
+            <Route path='visi-misi' element={<VisiMisi />} />
+            <Route path='struktur-organisasi' element={<StrukturOrganisasi />} />
+            <Route path='layanan' element={<Layanan />} />
+            <Route path='berita' element={<Berita />} />
             <Route path='login' element={<Login />} />
 
             <Route element={<ProtectedRoute />}>
