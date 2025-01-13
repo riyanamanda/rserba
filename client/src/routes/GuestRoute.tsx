@@ -7,30 +7,20 @@ import Layanan from '@/pages/Layanan';
 import Login from '@/pages/Login';
 import StrukturOrganisasi from '@/pages/StrukturOrganisasi';
 import VisiMisi from '@/pages/VisiMisi';
-import { setUserData } from '@/state/auth/authSlice';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useLayoutEffect } from 'react';
 import { Route, Routes } from 'react-router';
 import ProtectedRoute from './ProtectedRoute';
 
 export default function GuestRoute() {
-    const token = localStorage.getItem('erba-auth');
-    const { current, logout } = useAuth();
-    const dispatch = useDispatch();
+    const { current } = useAuth();
 
-    useEffect(() => {
-        if (token) {
-            current(token)
-                .then((user) => {
-                    dispatch(setUserData(user.data));
-                })
-                .catch((error) => {
-                    if (error.status === 401 || error.status === 403) {
-                        logout();
-                    }
-                });
+    useLayoutEffect(() => {
+        const token = localStorage.getItem('erba-auth');
+
+        if (token !== null) {
+            current();
         }
-    }, [current, token, dispatch, logout]);
+    }, [current]);
 
     return (
         <Routes>

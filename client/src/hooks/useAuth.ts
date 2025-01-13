@@ -1,4 +1,5 @@
 import { client } from '@/lib/axios';
+import showToast from '@/lib/toast';
 import { clearUserData, setUserData } from '@/state/auth/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -12,14 +13,21 @@ const useAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const current = async (token: string) => {
-        const { data: response } = await client.get('/api/current', {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-
-        return response;
+    const current = async () => {
+        return await client
+            .get('/api/current', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('erba-auth')}`,
+                },
+            })
+            .then((response) => {
+                const user = response.data.data;
+                dispatch(setUserData(user));
+            })
+            .catch((error) => {
+                if (error.status === 401 || error.status === 403) showToast('info', 'Your token has been expired!', { position: 'top-center' });
+                logout();
+            });
     };
 
     const login = async (
@@ -32,12 +40,8 @@ const useAuth = () => {
         await client
             .post('/api/login', data)
             .then(async (response) => {
-                const token = response.data.data.token;
-                localStorage.setItem('erba-auth', token);
-
-                const user = await current(token);
-                dispatch(setUserData(user.data));
-
+                localStorage.setItem('erba-auth', response.data.data.token);
+                await current();
                 navigate('/admin', { replace: true });
             })
             .catch((error) => {
