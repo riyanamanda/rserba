@@ -1,13 +1,69 @@
+import Layanan from '@/components/Layanan';
 import AppLayout from '@/components/layout/AppLayout';
 import { Spotlight } from '@/components/Spotlight';
 import { TypingEffect } from '@/components/TypingEffect';
 import { Button } from '@/components/ui/button';
-import { Megaphone } from 'lucide-react';
+import {
+    AmbulanceIcon,
+    BrainCircuit,
+    BrainCogIcon,
+    GitBranchIcon,
+    Megaphone,
+    MoveRightIcon,
+    PersonStandingIcon,
+    PillIcon,
+    SpeechIcon,
+    UserRoundSearchIcon,
+} from 'lucide-react';
+import { NavLink } from 'react-router';
+
+const poli = [
+    {
+        icon: BrainCogIcon,
+        title: 'Poli Jiwa',
+        description: 'Melayani pasien dengan gangguan kejiwaan, mental, dan asuhan keperawatan',
+    },
+    {
+        icon: PillIcon,
+        title: 'Poli Napza',
+        description: 'RS Erba melayani pasien kecanduan narkoba, penyalahgunaan zat adiktif dan juga ayanan metadon',
+    },
+    {
+        icon: AmbulanceIcon,
+        title: 'Instalasi Gawat Darurat',
+        description: 'Melayani semua pasien kejiwaan dan umum selama 24 jam dengan dokter jaga',
+    },
+    {
+        icon: BrainCircuit,
+        title: 'Psikologi',
+        description: 'Melayani tes psikologi, kesehatan mental.',
+    },
+    {
+        icon: UserRoundSearchIcon,
+        title: 'Poli Obgyn',
+        description: 'Menyediakan layanan kesehatan untuk perempuan, terutama untuk kesehatan reproduksi dan kehamilan',
+    },
+    {
+        icon: SpeechIcon,
+        title: 'Poli Gigi dan Mulut',
+        description: 'Layanan kesehatan yang menangani kesehatan gigi dan mulut pasien. Meliputi pemeriksaan, pengobatan, dan tindakan medis dasar',
+    },
+    {
+        icon: GitBranchIcon,
+        title: 'THT',
+        description: 'Melayani pasien yang mengalami gangguan pada organ-organ THT, dan juga menangani gangguan pada kepala dan leher',
+    },
+    {
+        icon: PersonStandingIcon,
+        title: 'Penyakit Dalam',
+        description: 'Poliklinik yang menangani masalah kesehatan organ dalam tubuh',
+    },
+];
 
 const Home = () => {
     return (
         <AppLayout>
-            <section className='w-full flex items-center py-28 relative'>
+            <section className='w-full flex items-center relative py-28 max-w-[90rem] mx-auto '>
                 <Spotlight className='left-20' />
                 <div className='w-6/12 pl-24 space-y-5 h-full'>
                     <p className='flex items-center  gap-3 text-xs font-semibold w-fit rounded-full px-3 py-1 bg-accent text-accent-foreground'>
@@ -39,6 +95,28 @@ const Home = () => {
 
                 <div className='w-6/12 rounded-lg overflow-hidden shadow-xl shadow-card/20'>
                     <div className='h-[410px] w-[770] flex items-center justify-center bg-accent text-accent-foreground text-xs'>disini gambar</div>
+                </div>
+            </section>
+
+            <section className='my-20 w-full bg-card py-14 text-card-foreground'>
+                <div className='max-w-[90rem] mx-auto'>
+                    <div className='mx-auto w-fit'>
+                        <h1 className='text-center text-xl mb-2 font-semibold leading-relaxed tracking-tight'>Layanan Poli</h1>
+                        <p className='text-center text-sm text-muted-foreground'>
+                            Berbagai layanan poli <span className='font-semibold text-foreground'>Umum</span> dan{' '}
+                            <span className='font-semibold text-foreground'>Spesialis</span> dengan dokter senior yang tersedia di RS Ernaldi Bahar
+                        </p>
+                    </div>
+                    <div className='grid grid-cols-4 gap-10 my-10'>
+                        {poli.map((p) => (
+                            <Layanan icon={p.icon} title={p.title} description={p.description} />
+                        ))}
+                    </div>
+                    <NavLink to='/layanan' className='flex items-center ms-auto w-fit'>
+                        <Button variant='link'>
+                            Lainnya <MoveRightIcon />
+                        </Button>
+                    </NavLink>
                 </div>
             </section>
         </AppLayout>

@@ -27,7 +27,7 @@ const AppLayout = ({ title, description, canonical, children }: AppLayoutProps) 
 
             <div className='flex flex-col min-h-svh overflow-x-hidden'>
                 <Header />
-                <main className='w-full flex-1 bg-background text-foreground max-w-[90rem] mx-auto py-5'>{children}</main>
+                <main className='w-full flex-1 bg-background text-foreground py-5'>{children}</main>
                 <Footer />
             </div>
         </>
