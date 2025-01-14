@@ -100,19 +100,19 @@ const Home = () => {
 
             <section className='my-20 w-full bg-card py-14 text-card-foreground'>
                 <div className='max-w-[90rem] mx-auto'>
-                    <div className='mx-auto w-fit'>
+                    <div className='mx-auto w-fit space-y-5'>
                         <h1 className='text-center text-xl mb-2 font-semibold leading-relaxed tracking-tight'>Layanan Poli</h1>
                         <p className='text-center text-sm text-muted-foreground'>
                             Berbagai layanan poli <span className='font-semibold text-foreground'>Umum</span> dan{' '}
                             <span className='font-semibold text-foreground'>Spesialis</span> dengan dokter senior yang tersedia di RS Ernaldi Bahar
                         </p>
                     </div>
-                    <div className='grid grid-cols-4 gap-10 my-10'>
+                    <div className='grid grid-cols-4 gap-10 mt-16'>
                         {poli.map((p) => (
                             <Layanan icon={p.icon} title={p.title} description={p.description} />
                         ))}
                     </div>
-                    <NavLink to='/layanan' className='flex items-center ms-auto w-fit'>
+                    <NavLink to='/layanan' className='flex items-center ms-auto w-fit mt-5'>
                         <Button variant='link'>
                             Lainnya <MoveRightIcon />
                         </Button>
