@@ -26,7 +26,7 @@ const poli = [
     {
         icon: PillIcon,
         title: 'Poli Napza',
-        description: 'RS Erba melayani pasien kecanduan narkoba, penyalahgunaan zat adiktif dan juga ayanan metadon',
+        description: 'Melayani pasien kecanduan narkoba, penyalahgunaan zat adiktif dan juga layanan metadon',
     },
     {
         icon: AmbulanceIcon,
@@ -35,8 +35,8 @@ const poli = [
     },
     {
         icon: BrainCircuit,
-        title: 'Psikologi',
-        description: 'Melayani tes psikologi, kesehatan mental.',
+        title: 'Saraf',
+        description: 'Layanan untuk melakukan pemeriksaan dan pengobatan gangguan pada sistem saraf',
     },
     {
         icon: UserRoundSearchIcon,
@@ -46,17 +46,17 @@ const poli = [
     {
         icon: SpeechIcon,
         title: 'Poli Gigi dan Mulut',
-        description: 'Layanan kesehatan yang menangani kesehatan gigi dan mulut pasien. Meliputi pemeriksaan, pengobatan, dan tindakan medis dasar',
+        description: 'Layanan yang menangani kesehatan gigi dan mulut pasien, meliputi pemeriksaan dan pengobatan',
     },
     {
         icon: GitBranchIcon,
         title: 'THT',
-        description: 'Melayani pasien yang mengalami gangguan pada organ-organ THT, dan juga menangani gangguan pada kepala dan leher',
+        description: 'Menangani gangguan pada organ telinga, hidung, dan mulut, meliputi kepala dan leher',
     },
     {
         icon: PersonStandingIcon,
         title: 'Penyakit Dalam',
-        description: 'Poliklinik yang menangani masalah kesehatan organ dalam tubuh',
+        description: 'Layanan yang menangani pasien dengan masalah pada kesehatan organ-organ dalam tubuh',
     },
 ];
 
@@ -104,7 +104,7 @@ const Home = () => {
                         <h1 className='text-center text-xl mb-2 font-semibold leading-relaxed tracking-tight'>Layanan Poli</h1>
                         <p className='text-center text-sm text-muted-foreground'>
                             Berbagai layanan poli <span className='font-semibold text-foreground'>Umum</span> dan{' '}
-                            <span className='font-semibold text-foreground'>Spesialis</span> dengan dokter senior yang tersedia di RS Ernaldi Bahar
+                            <span className='font-semibold text-foreground'>Spesialis</span> dengan dokter senior yang bertugas di RS Ernaldi Bahar
                         </p>
                     </div>
                     <div className='grid grid-cols-4 gap-10 mt-16'>

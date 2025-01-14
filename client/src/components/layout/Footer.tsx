@@ -25,14 +25,14 @@ const Footer = () => {
             <div className='flex justify-between max-w-[90rem] mx-auto border-t border-primary/50 py-5'>
                 <div className='text-sm leading-7'>
                     <p className='text-muted-foreground'>&copy;{new Date().getFullYear()} - RS Ernaldi Bahar. Hak Cipta Dilindungi.</p>
-                    <p className='text-xs'>
+                    <p className='text-xs text-muted-foreground'>
                         Made by <span className='font-semibold text-primary'>IT &amp; Komunikasi</span>
                     </p>
                 </div>
 
                 <ul className='flex items-center gap-5'>
                     {social.map((item) => (
-                        <li>
+                        <li className='text-muted-foreground hover:text-foreground transition-colors duration-200'>
                             <a href={item.url} target='_blank' referrerPolicy='no-referrer'>
                                 <item.icon className='w-5 h-5 shrink-0' />
                             </a>

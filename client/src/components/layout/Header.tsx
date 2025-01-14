@@ -76,11 +76,15 @@ const Header = () => {
 
                 {isAuthenticated ? (
                     <NavLink to='/admin'>
-                        <Button variant={'ghost'}>Dashboard</Button>
+                        <Button variant={'default'} size={'sm'}>
+                            Dashboard
+                        </Button>
                     </NavLink>
                 ) : (
                     <NavLink to='/login'>
-                        <Button variant={'ghost'}>Login</Button>
+                        <Button variant={'default'} size={'sm'}>
+                            Login
+                        </Button>
                     </NavLink>
                 )}
             </div>
