@@ -29,8 +29,6 @@ public class WebExceptionHandler {
 
         return ResponseEntity.status(exception.getStatusCode())
                 .body(ValidationError.builder()
-                        .code(exception.getStatusCode().value())
-                        .status(exception.getStatusCode().toString().toUpperCase().substring(4))
                         .errors(errors)
                         .build()
                 );
