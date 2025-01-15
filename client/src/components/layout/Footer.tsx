@@ -32,7 +32,7 @@ const Footer = () => {
 
                 <ul className='flex items-center gap-5'>
                     {social.map((item) => (
-                        <li className='text-muted-foreground hover:text-foreground transition-colors duration-200'>
+                        <li className='text-muted-foreground hover:text-foreground transition-colors duration-200' key={item.url}>
                             <a href={item.url} target='_blank' referrerPolicy='no-referrer'>
                                 <item.icon className='w-5 h-5 shrink-0' />
                             </a>

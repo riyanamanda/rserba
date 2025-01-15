@@ -21,7 +21,7 @@ const useAuth = () => {
                 },
             })
             .then((response) => {
-                const user = response.data.data;
+                const user = response.data;
                 dispatch(setUserData(user));
             })
             .catch((error) => {
@@ -40,7 +40,7 @@ const useAuth = () => {
         await client
             .post('/api/login', data)
             .then(async (response) => {
-                localStorage.setItem('erba-auth', response.data.data.token);
+                localStorage.setItem('erba-auth', response.data.token);
                 await current();
                 navigate('/admin', { replace: true });
             })

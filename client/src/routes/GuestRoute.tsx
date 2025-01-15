@@ -17,7 +17,7 @@ export default function GuestRoute() {
     useLayoutEffect(() => {
         const token = localStorage.getItem('erba-auth');
 
-        if (token !== null) {
+        if (token != null) {
             current();
         }
     }, [current]);

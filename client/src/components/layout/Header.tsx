@@ -76,7 +76,7 @@ const Header = () => {
 
                 {isAuthenticated ? (
                     <NavLink to='/admin'>
-                        <Button variant={'default'} size={'sm'}>
+                        <Button variant={'ghost'} size={'sm'}>
                             Dashboard
                         </Button>
                     </NavLink>

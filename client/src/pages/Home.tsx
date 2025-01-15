@@ -109,7 +109,7 @@ const Home = () => {
                     </div>
                     <div className='grid grid-cols-4 gap-10 mt-16'>
                         {poli.map((p) => (
-                            <Layanan icon={p.icon} title={p.title} description={p.description} />
+                            <Layanan key={p.title} icon={p.icon} title={p.title} description={p.description} />
                         ))}
                     </div>
                     <NavLink to='/layanan' className='flex items-center ms-auto w-fit mt-5'>

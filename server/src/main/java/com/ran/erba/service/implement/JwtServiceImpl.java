@@ -49,7 +49,7 @@ public class JwtServiceImpl implements JwtService {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .verifyWith(getSigninKey())
+                .verifyWith(getSignInKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
@@ -60,11 +60,11 @@ public class JwtServiceImpl implements JwtService {
                 .subject(user.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // one hour
-                .signWith(getSigninKey())
+                .signWith(getSignInKey())
                 .compact();
     }
 
-    private SecretKey getSigninKey() {
+    private SecretKey getSignInKey() {
         byte[] keyBytes = Decoders.BASE64URL.decode(JWT_SECRET);
         return Keys.hmacShaKeyFor(keyBytes);
     }
