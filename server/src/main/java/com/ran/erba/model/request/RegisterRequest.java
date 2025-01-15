@@ -17,18 +17,18 @@ import lombok.Data;
 @Data
 @Builder
 public class RegisterRequest {
-    @NotBlank(message = "name is required")
+    @NotBlank(message = "Name is required")
     @Size(min = 3, max = 25)
     private String name;
 
     @Email
-    @NotBlank(message = "email is required")
+    @NotBlank(message = "Email is required")
     private String email;
 
-    @NotBlank(message = "password is required")
+    @NotBlank(message = "Password is required")
     @Size(min = 8, max = 255)
     private String password;
 
-    @NotNull(message = "role is required")
+    @NotNull(message = "Role is required")
     private Role role;
 }
