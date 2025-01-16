@@ -1,3 +1,4 @@
+import CountUp from '@/components/CountUp';
 import Layanan from '@/components/Layanan';
 import AppLayout from '@/components/layout/AppLayout';
 import { Spotlight } from '@/components/Spotlight';
@@ -5,6 +6,7 @@ import { TypingEffect } from '@/components/TypingEffect';
 import { Button } from '@/components/ui/button';
 import {
     AmbulanceIcon,
+    Bed,
     BrainCircuit,
     BrainCogIcon,
     GitBranchIcon,
@@ -15,6 +17,7 @@ import {
     SpeechIcon,
     UserRoundSearchIcon,
 } from 'lucide-react';
+import { FaHospitalUser, FaUserDoctor } from 'react-icons/fa6';
 import { NavLink } from 'react-router';
 
 const poli = [
@@ -63,6 +66,7 @@ const poli = [
 const Home = () => {
     return (
         <AppLayout>
+            {/* Hero */}
             <section className='w-full flex items-center relative py-28 max-w-[90rem] mx-auto '>
                 <Spotlight className='left-20' />
                 <div className='w-6/12 pl-24 space-y-5 h-full'>
@@ -98,6 +102,7 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* Layanan */}
             <section className='my-20 w-full bg-card py-14 text-card-foreground'>
                 <div className='max-w-[90rem] mx-auto'>
                     <div className='mx-auto w-fit space-y-5'>
@@ -117,6 +122,19 @@ const Home = () => {
                             Lainnya <MoveRightIcon />
                         </Button>
                     </NavLink>
+                </div>
+            </section>
+
+            {/* Count Up */}
+            <section className='max-w-[90rem] mx-auto grid grid-cols-2 place-content-center place-items-center py-10 pl-5'>
+                <p className='uppercase tracking-widest font-semibold text-sm w-full'>
+                    Kelas <span className='text-primary'>A</span> dan ter-akreditasi <span className='text-tertiary'>paripurna</span> dengan Layanan{' '}
+                    <span className='text-quarternary'>terbaik</span>
+                </p>
+                <div className='flex items-center justify-around w-full'>
+                    <CountUp icon={FaUserDoctor} title='Dokter' number={21} />
+                    <CountUp icon={Bed} title='Tempat Tidur' number={150} />
+                    <CountUp icon={FaHospitalUser} title='Poliklinik' number={18} />
                 </div>
             </section>
         </AppLayout>
