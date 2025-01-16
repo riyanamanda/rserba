@@ -1,6 +1,8 @@
 package com.ran.erba.model.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -10,7 +12,9 @@ import lombok.Data;
  **/
 
 @Data
+@Builder
 public class CategoryRequest {
     @NotBlank(message = "Name is required")
+    @Size(min = 2, max = 50)
     private String name;
 }

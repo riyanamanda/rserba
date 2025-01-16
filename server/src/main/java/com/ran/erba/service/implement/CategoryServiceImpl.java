@@ -50,12 +50,28 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void update(CategoryUpdateRequest request) {
+    public void update(int id, CategoryUpdateRequest request) {
+        if (categoryRepository.findById(id).isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
+        }
 
+        if (categoryRepository.findBySlug(slugGenerator.generateSlug(request.getName())).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Category '" + request.getName() + "' already exist");
+        }
+
+        Category category = categoryRepository.findById(id).get();
+        category.setName(request.getName());
+        category.setSlug(slugGenerator.generateSlug(request.getName()));
+
+        categoryRepository.save(category);
     }
 
     @Override
     public void delete(int id) {
+        if (categoryRepository.findById(id).isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
+        }
 
+        categoryRepository.deleteById(id);
     }
 }

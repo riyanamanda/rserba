@@ -2,6 +2,7 @@ package com.ran.erba.mapper;
 
 import com.ran.erba.model.dto.CategoryDto;
 import com.ran.erba.model.entity.Category;
+import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
@@ -11,6 +12,7 @@ import java.util.function.Function;
  * @since 15/01/2025, Wednesday
  **/
 
+@Component
 public class CategoryMapper implements Function<Category, CategoryDto> {
     @Override
     public CategoryDto apply(Category category) {

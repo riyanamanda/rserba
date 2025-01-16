@@ -15,6 +15,6 @@ public interface CategoryService {
     Page<Category> findAll(int page, int size);
     void create(CategoryRequest request);
     Category findById(int id);
-    void update(CategoryUpdateRequest request);
+    void update(int id, CategoryUpdateRequest request);
     void delete(int id);
 }

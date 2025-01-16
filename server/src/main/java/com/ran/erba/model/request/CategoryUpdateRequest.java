@@ -1,6 +1,9 @@
 package com.ran.erba.model.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Builder;
+import lombok.Data;
 
 /**
  * @author Riyan Amanda
@@ -8,7 +11,10 @@ import jakarta.validation.constraints.NotBlank;
  * @since 15/01/2025, Wednesday
  **/
 
+@Data
+@Builder
 public class CategoryUpdateRequest {
     @NotBlank(message = "Name is required")
+    @Size(min = 2, max = 50)
     private String name;
 }
