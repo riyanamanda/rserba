@@ -2,10 +2,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import useAuth from '@/hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 import { RootState } from '@/state/store';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
@@ -35,7 +35,7 @@ const Login = () => {
         login(data, form, setIsLoading);
     };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (isLogged) navigate('/admin');
     }, [isLogged, navigate]);
 

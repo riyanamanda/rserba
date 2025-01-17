@@ -1,6 +1,7 @@
 import { ChevronRight, ChevronsUpDown, Gauge, GraduationCap, LayoutGrid, LogOut, Newspaper, SquareUser, User, UserPen } from 'lucide-react';
 import * as React from 'react';
 
+import { Logo } from '@/assets';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
@@ -28,11 +29,10 @@ import {
     SidebarMenuSubItem,
     useSidebar,
 } from '@/components/ui/sidebar';
-import useAuth from '@/hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 import { RootState } from '@/state/store';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router';
-import { Logo } from '@/assets';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const { isMobile } = useSidebar();

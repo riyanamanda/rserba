@@ -1,6 +1,7 @@
 import { AppSidebar } from '@/components/layout/admin/AppSidebar';
 import { ModeToggle } from '@/components/ModeToggle';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { Toaster } from '@/components/ui/sonner';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router';
 
@@ -11,6 +12,8 @@ const CmsLayout = () => {
                 <title>{import.meta.env.VITE_APP_NAME}</title>
                 <meta name='robots' content='noindex' />
             </Helmet>
+
+            <Toaster />
 
             <SidebarProvider>
                 <AppSidebar />

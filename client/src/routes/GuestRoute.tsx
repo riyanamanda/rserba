@@ -1,5 +1,5 @@
 import CmsLayout from '@/components/layout/admin/CmsLayout';
-import useAuth from '@/hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 import Dashboard from '@/pages/admin/Dashboard';
 import Berita from '@/pages/Berita';
 import Home from '@/pages/Home';
@@ -10,17 +10,19 @@ import VisiMisi from '@/pages/VisiMisi';
 import { useLayoutEffect } from 'react';
 import { Route, Routes } from 'react-router';
 import ProtectedRoute from './ProtectedRoute';
+import { useCookie } from '@/hooks/useCookie';
 
 export default function GuestRoute() {
     const { current } = useAuth();
+    const { getCookie } = useCookie();
 
     useLayoutEffect(() => {
-        const token = localStorage.getItem('erba-auth');
+        const token = getCookie('erba-auth');
 
         if (token != null) {
             current();
         }
-    }, [current]);
+    }, [getCookie, current]);
 
     return (
         <Routes>

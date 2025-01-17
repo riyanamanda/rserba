@@ -3,30 +3,43 @@ import showToast from '@/lib/toast';
 import { clearUserData, setUserData } from '@/state/auth/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { useCookie } from './useCookie';
 
 type DataProps = {
     email: string;
     password: string;
 };
 
-const useAuth = () => {
+export const useAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { getCookie, setCookie, removeCookie } = useCookie();
 
     const current = async () => {
+        const authCookie = getCookie('erba-auth');
+
         return await client
             .get('/api/current', {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('erba-auth')}`,
+                    Authorization: `Bearer ${authCookie}}`,
                 },
             })
             .then((response) => {
-                const user = response.data;
-                dispatch(setUserData(user));
+                dispatch(setUserData(response.data));
             })
             .catch((error) => {
-                if (error.status === 401 || error.status === 403) showToast('info', 'Your token has been expired!', { position: 'top-center' });
-                logout();
+                if (error.status === 401) {
+                    logout();
+                }
+
+                if (error.status === 403) {
+                    navigate(-1);
+                    showToast('info', 'You are not allowed access the page');
+                }
+
+                if (error.status === 500) {
+                    showToast('error', 'Internal server error');
+                }
             });
     };
 
@@ -40,12 +53,11 @@ const useAuth = () => {
         await client
             .post('/api/login', data)
             .then(async (response) => {
-                localStorage.setItem('erba-auth', response.data.token);
-                await current();
+                setCookie('erba-auth', response.data.token);
                 navigate('/admin', { replace: true });
             })
             .catch((error) => {
-                if (error.status === 401 || error.status === 403) form.setError('email', { message: 'Email or Password is incorrect' });
+                if (error.status === 401) form.setError('email', { message: 'Email or Password is incorrect' });
 
                 if (error.status === 400) {
                     Object.keys(error.response.data.errors).forEach((err) =>
@@ -53,6 +65,10 @@ const useAuth = () => {
                             message: error.response.data.errors[err],
                         })
                     );
+                }
+
+                if (error.status === 500) {
+                    showToast('error', 'Internal server error');
                 }
             })
             .finally(() => {
@@ -62,11 +78,9 @@ const useAuth = () => {
 
     const logout = () => {
         dispatch(clearUserData());
-        localStorage.removeItem('erba-auth');
-        navigate('/', { replace: true });
+        removeCookie('erba-auth');
+        navigate('/login', { replace: true });
     };
 
     return { current, login, logout };
 };
-
-export default useAuth;

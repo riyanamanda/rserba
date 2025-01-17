@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Footer from './Footer';
 import Header from './Header';
-import { ToastContainer } from 'react-toastify';
+import { Toaster } from '../ui/sonner';
 
 type AppLayoutProps = {
     title?: string;
@@ -23,7 +23,7 @@ const AppLayout = ({ title, description, canonical, children }: AppLayoutProps) 
                 <link rel='canonical' href={import.meta.env.VITE_APP_URL + (canonical ?? '')} />
             </Helmet>
 
-            <ToastContainer className='bg-background text-foreground' newestOnTop />
+            <Toaster />
 
             <div className='flex flex-col min-h-svh overflow-x-hidden'>
                 <Header />
