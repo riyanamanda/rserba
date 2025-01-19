@@ -2,7 +2,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Toaster } from '@/components/ui/sonner';
 import { useAuth } from '@/hooks/useAuth';
+import { useCookie } from '@/hooks/useCookie';
 import { RootState } from '@/state/store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLayoutEffect, useState } from 'react';
@@ -21,7 +23,8 @@ const Login = () => {
     const isLogged = useSelector((state: RootState) => state.auth.isAuthenticated);
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const { login } = useAuth();
+    const { current, login } = useAuth();
+    const cookie = useCookie();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -36,8 +39,10 @@ const Login = () => {
     };
 
     useLayoutEffect(() => {
+        const token = cookie.getCookie('erba-auth');
+        if (token !== undefined) current();
         if (isLogged) navigate('/admin');
-    }, [isLogged, navigate]);
+    }, [cookie, current, isLogged, navigate]);
 
     return (
         <>
@@ -45,6 +50,8 @@ const Login = () => {
                 <title>{import.meta.env.APP_URL}</title>
                 <meta name='robots' content='noindex' />
             </Helmet>
+
+            <Toaster />
 
             <div className='flex min-h-svh w-full items-center justify-center p-6 md:p-10'>
                 <div className='w-full max-w-sm'>

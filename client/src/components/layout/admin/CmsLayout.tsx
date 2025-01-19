@@ -2,10 +2,20 @@ import { AppSidebar } from '@/components/layout/admin/AppSidebar';
 import { ModeToggle } from '@/components/ModeToggle';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { Toaster } from '@/components/ui/sonner';
+import { useAuth } from '@/hooks/useAuth';
+import { useCookie } from '@/hooks/useCookie';
+import { useLayoutEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router';
 
 const CmsLayout = () => {
+    const cookie = useCookie();
+    const { current } = useAuth();
+
+    useLayoutEffect(() => {
+        const token = cookie.getCookie('erba-auth');
+        if (token !== undefined) current();
+    }, [cookie, current]);
     return (
         <>
             <Helmet>

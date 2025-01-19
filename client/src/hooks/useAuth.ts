@@ -1,6 +1,6 @@
 import { client } from '@/lib/axios';
 import showToast from '@/lib/toast';
-import { clearUserData, setUserData } from '@/state/auth/authSlice';
+import { clearUserData, setUserData } from '@/state/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useCookie } from './useCookie';
@@ -13,15 +13,13 @@ type DataProps = {
 export const useAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { getCookie, setCookie, removeCookie } = useCookie();
+    const cookie = useCookie();
 
     const current = async () => {
-        const authCookie = getCookie('erba-auth');
-
         return await client
             .get('/api/current', {
                 headers: {
-                    Authorization: `Bearer ${authCookie}}`,
+                    Authorization: `Bearer ${cookie.getCookie('erba-auth')}`,
                 },
             })
             .then((response) => {
@@ -29,6 +27,7 @@ export const useAuth = () => {
             })
             .catch((error) => {
                 if (error.status === 401) {
+                    showToast('error', error.message);
                     logout();
                 }
 
@@ -53,7 +52,7 @@ export const useAuth = () => {
         await client
             .post('/api/login', data)
             .then(async (response) => {
-                setCookie('erba-auth', response.data.token);
+                cookie.setCookie('erba-auth', response.data.token);
                 navigate('/admin', { replace: true });
             })
             .catch((error) => {
@@ -78,7 +77,7 @@ export const useAuth = () => {
 
     const logout = () => {
         dispatch(clearUserData());
-        removeCookie('erba-auth');
+        cookie.removeCookie('erba-auth');
         navigate('/login', { replace: true });
     };
 

@@ -66,10 +66,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarMenu>
                         <SidebarMenuItem>
                             <SidebarMenuButton asChild>
-                                <a href='#'>
+                                <NavLink to='/admin'>
                                     <Gauge />
                                     <span>Dashboard</span>
-                                </a>
+                                </NavLink>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
 
@@ -90,10 +90,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarMenu>
                         <SidebarMenuItem>
                             <SidebarMenuButton asChild>
-                                <a href='#'>
+                                <NavLink to='/admin/category'>
                                     <LayoutGrid />
                                     <span>Categories</span>
-                                </a>
+                                </NavLink>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
 

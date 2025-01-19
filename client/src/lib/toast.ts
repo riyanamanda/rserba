@@ -6,7 +6,7 @@ export default function showToast(type: ToastType, text: string, options?: Parti
     const toastFn = type === 'error' ? toast.error : type === 'info' ? toast.info : type === 'warning' ? toast.warning : toast.success;
 
     const toastOptions: ToasterProps = {
-        position: 'top-right',
+        position: 'bottom-right',
         duration: 2500,
         theme: 'system',
     };

@@ -1,7 +1,10 @@
+import { useAuth } from '@/hooks/useAuth';
+import { useCookie } from '@/hooks/useCookie';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Toaster } from '../ui/sonner';
 import Footer from './Footer';
 import Header from './Header';
-import { Toaster } from '../ui/sonner';
 
 type AppLayoutProps = {
     title?: string;
@@ -11,9 +14,17 @@ type AppLayoutProps = {
 };
 
 const AppLayout = ({ title, description, canonical, children }: AppLayoutProps) => {
+    const { current } = useAuth();
+    const cookie = useCookie();
+
     const appname = import.meta.env.VITE_APP_NAME;
     const desc =
         'Melainkan sebuah filosofi hidup yang mencerminkan betapa kompleks dan penuh arti proses untuk kembali pulih, baik secara fisik, mental, maupun emosional.';
+
+    useEffect(() => {
+        const token = cookie.getCookie('erba-auth');
+        if (token !== undefined) current();
+    }, [cookie, current]);
 
     return (
         <>
