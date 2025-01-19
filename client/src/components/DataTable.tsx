@@ -31,7 +31,7 @@ export function DataTable<TData, TValue>({ columns, data, pageIndex, pageSize, p
 
     return (
         <>
-            <div className='rounded-md border'>
+            <div className='rounded-md border pt-5'>
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -65,7 +65,7 @@ export function DataTable<TData, TValue>({ columns, data, pageIndex, pageSize, p
                     </TableBody>
                 </Table>
             </div>
-            <div className='mt-10'>
+            <div className='my-5 pt-5'>
                 <DataTablePagination table={table} />
             </div>
         </>

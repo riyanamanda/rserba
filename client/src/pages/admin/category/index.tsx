@@ -2,11 +2,12 @@ import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useCategory } from '@/hooks/useCategory';
 import { FormatDate } from '@/lib/formatDate';
+import showToast from '@/lib/toast';
 import { ColumnDef } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { DataTable } from '../../../components/DataTable';
 
 type CategoryProps = {
@@ -28,14 +29,20 @@ const Category = () => {
     const { data: categories, isLoading } = useQuery({
         queryKey: ['categories', pagination],
         queryFn: () => getCategories(pagination),
+        onError: () => {
+            navigate(-1);
+            showToast('error', 'You are unauthorized to access the page');
+            return;
+        },
     });
 
     const columns: ColumnDef<CategoryProps>[] = [
         {
             accessorKey: 'id',
             header: 'No.',
-            cell: ({ row }) => {
-                return <span>{row.index + 1}</span>;
+            cell: ({ row, table }) => {
+                const rowNumber = table.getState().pagination.pageIndex * table.getState().pagination.pageSize + row.index + 1;
+                return <span>{rowNumber}</span>;
             },
         },
         {
@@ -95,6 +102,13 @@ const Category = () => {
             </div>
 
             <div className='mt-10'>
+                <div className='flex items-center justify-end my-3'>
+                    <NavLink to={'/admin/category/create'}>
+                        <Button variant={'outline'} size={'xs'}>
+                            New Category
+                        </Button>
+                    </NavLink>
+                </div>
                 {isLoading ? (
                     <div className='flex items-center justify-center mt-32'>Loading...</div>
                 ) : (

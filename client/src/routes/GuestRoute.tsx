@@ -11,6 +11,7 @@ import VisiMisi from '@/pages/VisiMisi';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Route, Routes } from 'react-router';
 import ProtectedRoute from './ProtectedRoute';
+import CreateCategoryPage from '@/pages/admin/category/Create';
 
 export default function GuestRoute() {
     return (
@@ -26,7 +27,10 @@ export default function GuestRoute() {
                 <Route element={<ProtectedRoute />}>
                     <Route path='admin' element={<CmsLayout />}>
                         <Route index element={<Dashboard />} />
-                        <Route path='category' element={<Category />} />
+                        <Route path='category'>
+                            <Route index element={<Category />} />
+                            <Route path='create' element={<CreateCategoryPage />} />
+                        </Route>
                     </Route>
                 </Route>
             </Routes>
