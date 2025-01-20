@@ -3,6 +3,7 @@ import Layanan from '@/components/Layanan';
 import AppLayout from '@/components/layout/AppLayout';
 import { Spotlight } from '@/components/Spotlight';
 import { TypingEffect } from '@/components/TypingEffect';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import {
     AmbulanceIcon,
@@ -126,7 +127,7 @@ const Home = () => {
             </section>
 
             {/* Count Up */}
-            <section className='max-w-[90rem] mx-auto grid grid-cols-2 place-content-center place-items-center py-10 pl-5'>
+            <section className='max-w-[90rem] mx-auto grid grid-cols-2 place-content-center place-items-center py-14 pl-5'>
                 <p className='uppercase tracking-widest font-semibold text-sm w-full'>
                     Kelas <span className='text-primary'>A</span> dan ter-akreditasi <span className='text-tertiary'>paripurna</span> dengan Layanan{' '}
                     <span className='text-quarternary'>terbaik</span>
@@ -135,6 +136,39 @@ const Home = () => {
                     <CountUp icon={FaUserDoctor} title='Dokter' number={21} />
                     <CountUp icon={Bed} title='Tempat Tidur' number={150} />
                     <CountUp icon={FaHospitalUser} title='Poliklinik' number={18} />
+                </div>
+            </section>
+
+            {/* Dokter */}
+            <section className='my-20 w-full bg-card py-14 text-card-foreground'>
+                <div className='max-w-[90rem] mx-auto text-center'>
+                    <p>Disni informasi dokter</p>
+                </div>
+            </section>
+
+            {/* FAQ */}
+            <section className='py-10 mt-10'>
+                <div className='max-w-[90rem] mx-auto w-full grid grid-cols-3'>
+                    <h2 className='mt-5 scroll-m-20 pb-2 text-xl font-semibold tracking-tight col-span-1'>Pertanyaan yang sering diajukan (FAQ)</h2>
+                    <Accordion type='single' collapsible className='col-span-2'>
+                        <AccordionItem value='item-1'>
+                            <AccordionTrigger>Apakah RS Ernaldi Bahar menerima asuransi kesehatan BPJS?</AccordionTrigger>
+                            <AccordionContent>Iya. RS Ernaldi Bahar menerima asuransi kesehatan BPJS.</AccordionContent>
+                        </AccordionItem>
+
+                        <AccordionItem value='item-2'>
+                            <AccordionTrigger>Asuransi kesehatan apa saja yang bekerjasama dengan RS Ernaldi Bahar?</AccordionTrigger>
+                            <AccordionContent>RS Ernaldi Bahar bekerjasama dengan asuransi kesehatan BPJS PBI dan NON-PBI.</AccordionContent>
+                        </AccordionItem>
+
+                        <AccordionItem value='item-3'>
+                            <AccordionTrigger>Bagaimana alur pelayanan pasien BPJS?</AccordionTrigger>
+                            <AccordionContent>
+                                Pasien BPJS wajib untuk mendapatkan surat rujukan dari puskesmas terlebih dahulu, setelah itu pasien ke RS Ernaldi
+                                Bahar dan akan dilayani seperti biasanya.
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
                 </div>
             </section>
         </AppLayout>
