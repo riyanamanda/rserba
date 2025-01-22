@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from 'react-router';
 import { DataTable } from '../../../components/DataTable';
+import AdminPageLayout from '@/components/layout/admin/AdminPageLayout';
 
 type CategoryProps = {
     id: number;
@@ -95,34 +96,28 @@ const Category = () => {
     ];
 
     return (
-        <div className='p-4 pt-0'>
-            <div>
-                <h1 className='scroll-m-20 leading-relaxed text-xl font-extrabold tracking-tight'>Categories</h1>
-                <p className='leading-7 text-muted-foreground text-sm'>All data of categories provided here.</p>
+        <AdminPageLayout title='Categories' description='All data of categories provided here.'>
+            <div className='flex items-center justify-end py-5'>
+                <NavLink to={'/admin/category/create'}>
+                    <Button variant={'outline'} size={'xs'}>
+                        New Category
+                    </Button>
+                </NavLink>
             </div>
 
-            <div className='mt-10'>
-                <div className='flex items-center justify-end my-3'>
-                    <NavLink to={'/admin/category/create'}>
-                        <Button variant={'outline'} size={'xs'}>
-                            New Category
-                        </Button>
-                    </NavLink>
-                </div>
-                {isLoading ? (
-                    <div className='flex items-center justify-center mt-32'>Loading...</div>
-                ) : (
-                    <DataTable
-                        columns={columns}
-                        data={categories.content}
-                        pageIndex={pagination.pageIndex}
-                        pageSize={pagination.pageSize}
-                        pageCount={categories.total}
-                        setPagination={setPagination}
-                    />
-                )}
-            </div>
-        </div>
+            {isLoading ? (
+                <div className='flex items-center justify-center mt-32'>Loading...</div>
+            ) : (
+                <DataTable
+                    columns={columns}
+                    data={categories.content}
+                    pageIndex={pagination.pageIndex}
+                    pageSize={pagination.pageSize}
+                    pageCount={categories.total}
+                    setPagination={setPagination}
+                />
+            )}
+        </AdminPageLayout>
     );
 };
 
