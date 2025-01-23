@@ -1,18 +1,22 @@
 package com.ran.erba.controller;
 
 import com.ran.erba.mapper.CategoryMapper;
+import com.ran.erba.model.dto.CategoryDto;
 import com.ran.erba.model.dto.PageableDto;
 import com.ran.erba.model.entity.Category;
-import com.ran.erba.model.request.CategoryRequest;
+import com.ran.erba.model.request.CategoryCreateRequest;
 import com.ran.erba.model.request.CategoryUpdateRequest;
+import com.ran.erba.model.response.WebResponse;
 import com.ran.erba.service.interfaces.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * @author Riyan Amanda
@@ -53,26 +57,41 @@ public class CategoryController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Object> create(@Valid @RequestBody CategoryRequest request) {
+    public ResponseEntity<WebResponse> create(@Valid @RequestBody CategoryCreateRequest request) {
         categoryService.create(request);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                WebResponse.builder().message("Category created").build()
+        );
+    }
+
+    @GetMapping(
+            path = "/{slug}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Object> findBySlug(@PathVariable String slug) {
+        Category category = categoryService.findBySlug(slug);
+
+        return new ResponseEntity<>(categoryMapper.apply(category), HttpStatus.OK);
     }
 
     @PatchMapping(
-            path = "/{id}",
-            consumes = MediaType.APPLICATION_JSON_VALUE
+            path = "/{slug}",
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Object> update(@Valid @PathVariable int id, @RequestBody CategoryUpdateRequest request) {
-        categoryService.update(id, request);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<WebResponse> update(@Valid @PathVariable String slug, @RequestBody CategoryUpdateRequest request) {
+        categoryService.update(slug, request);
+
+        return new ResponseEntity<>(WebResponse.builder().message("Category updated").build(), HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping(
-            path = "/{id}",
+            path = "/{slug}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Object> delete(@PathVariable int id) {
-        categoryService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<WebResponse> delete(@PathVariable String slug) {
+        categoryService.delete(slug);
+
+        return new ResponseEntity<>(WebResponse.builder().message("Category deleted").build(), HttpStatus.ACCEPTED);
     }
 }

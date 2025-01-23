@@ -1,8 +1,9 @@
 package com.ran.erba.service.implement;
 
 import com.ran.erba.model.entity.Category;
-import com.ran.erba.model.request.CategoryRequest;
+import com.ran.erba.model.request.CategoryCreateRequest;
 import com.ran.erba.model.request.CategoryUpdateRequest;
+import com.ran.erba.model.response.WebResponse;
 import com.ran.erba.repository.CategoryRepository;
 import com.ran.erba.service.interfaces.CategoryService;
 import com.ran.erba.utils.SlugGenerator;
@@ -32,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void create(CategoryRequest request) {
+    public void create(CategoryCreateRequest request) {
         if (categoryRepository.findBySlug(slugGenerator.generateSlug(request.getName())).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Category '" + request.getName() + "' already exist");
         }
@@ -45,21 +46,27 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category findById(int id) {
-        return categoryRepository.findById(id).orElse(null);
+    public Category findBySlug(String slug){
+        return categoryRepository.findBySlug(slug).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Category '" + slug + "' does not exist")
+        );
     }
 
     @Override
-    public void update(int id, CategoryUpdateRequest request) {
-        if (categoryRepository.findById(id).isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
+    public void update(String slug, CategoryUpdateRequest request) {
+        Category category = categoryRepository.findBySlug(slug).orElse(null);
+        Category newCategory = categoryRepository.findBySlug(slug).orElse(null);
+
+        // Check if category is present
+        if (category == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category '" + slug + "' not found");
         }
 
-        if (categoryRepository.findBySlug(slugGenerator.generateSlug(request.getName())).isPresent()) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Category '" + request.getName() + "' already exist");
+        // Check if category and new category is not match
+        if (newCategory != null && newCategory.getSlug().equals(category.getSlug())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Category '" + slug + "' already exist");
         }
 
-        Category category = categoryRepository.findById(id).get();
         category.setName(request.getName());
         category.setSlug(slugGenerator.generateSlug(request.getName()));
 
@@ -67,11 +74,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(int id) {
-        if (categoryRepository.findById(id).isEmpty()) {
+    public void delete(String slug) {
+        if (categoryRepository.findBySlug(slug).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
         }
 
-        categoryRepository.deleteById(id);
+        categoryRepository.deleteBySlug(slug);
     }
 }

@@ -52,7 +52,7 @@ public class SecurityConfig {
                 .userDetailsService(userDetailsService)
                 .exceptionHandling(exception -> exception
                     .accessDeniedHandler(customAccessDeniedHandler)
-                    .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 )
                 .sessionManagement(session -> session
                     .sessionCreationPolicy(STATELESS)

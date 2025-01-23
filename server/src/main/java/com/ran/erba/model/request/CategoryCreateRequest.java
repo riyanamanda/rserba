@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CategoryRequest {
+public class CategoryCreateRequest {
     @NotBlank(message = "Name is required")
     @Size(min = 2, max = 50)
     private String name;

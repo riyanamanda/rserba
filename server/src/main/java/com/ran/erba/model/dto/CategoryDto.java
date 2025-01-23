@@ -1,6 +1,7 @@
 package com.ran.erba.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
  * @since 15/01/2025, Wednesday
  **/
 
+@Builder
 public record CategoryDto(
         Integer id,
         String name,
