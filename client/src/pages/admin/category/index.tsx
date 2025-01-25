@@ -31,7 +31,6 @@ const Category = () => {
         queryKey: ['categories', pagination],
         queryFn: () => getCategories(pagination),
         onError: () => {
-            navigate(-1);
             showToast('error', 'You are unauthorized to access the page');
             return;
         },
@@ -110,10 +109,10 @@ const Category = () => {
             ) : (
                 <DataTable
                     columns={columns}
-                    data={categories.content}
+                    data={categories?.data.content}
                     pageIndex={pagination.pageIndex}
                     pageSize={pagination.pageSize}
-                    pageCount={categories.total}
+                    pageCount={categories?.data.total}
                     setPagination={setPagination}
                 />
             )}

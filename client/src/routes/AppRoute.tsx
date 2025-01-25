@@ -1,6 +1,7 @@
 import ErrorPage from '@/components/ErrorPage';
 import CmsLayout from '@/components/layout/admin/CmsLayout';
 import Category from '@/pages/admin/category';
+import CreateCategoryPage from '@/pages/admin/category/Create';
 import Dashboard from '@/pages/admin/Dashboard';
 import Berita from '@/pages/Berita';
 import Home from '@/pages/Home';
@@ -10,10 +11,8 @@ import StrukturOrganisasi from '@/pages/StrukturOrganisasi';
 import VisiMisi from '@/pages/VisiMisi';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Route, Routes } from 'react-router';
-import ProtectedRoute from './ProtectedRoute';
-import CreateCategoryPage from '@/pages/admin/category/Create';
 
-export default function GuestRoute() {
+const AppRoute = () => {
     return (
         <ErrorBoundary fallback={<ErrorPage />}>
             <Routes>
@@ -24,16 +23,16 @@ export default function GuestRoute() {
                 <Route path='berita' element={<Berita />} />
                 <Route path='login' element={<Login />} />
 
-                <Route element={<ProtectedRoute />}>
-                    <Route path='admin' element={<CmsLayout />}>
-                        <Route index element={<Dashboard />} />
-                        <Route path='category'>
-                            <Route index element={<Category />} />
-                            <Route path='create' element={<CreateCategoryPage />} />
-                        </Route>
+                <Route path='admin' element={<CmsLayout />}>
+                    <Route index element={<Dashboard />} />
+                    <Route path='category'>
+                        <Route index element={<Category />} />
+                        <Route path='create' element={<CreateCategoryPage />} />
                     </Route>
                 </Route>
             </Routes>
         </ErrorBoundary>
     );
-}
+};
+
+export default AppRoute;

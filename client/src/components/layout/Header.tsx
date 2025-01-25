@@ -1,14 +1,10 @@
-import { RootState } from '@/state/store';
-import { useSelector } from 'react-redux';
+import { Logo } from '@/assets';
 import { NavLink } from 'react-router';
 import { ModeToggle } from '../ModeToggle';
 import { Button } from '../ui/button';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from '../ui/navigation-menu';
-import { Logo } from '@/assets';
 
 const Header = () => {
-    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-
     return (
         <header className='w-full flex items-center py-5 px-8 border-b'>
             <div className='w-2/12'>
@@ -74,19 +70,17 @@ const Header = () => {
             <div className='ml-auto flex items-center justify-end space-x-3 w-2/12'>
                 <ModeToggle />
 
-                {isAuthenticated ? (
-                    <NavLink to='/admin'>
-                        <Button variant={'ghost'} size={'sm'}>
-                            Dashboard
-                        </Button>
-                    </NavLink>
-                ) : (
-                    <NavLink to='/login'>
-                        <Button variant={'default'} size={'sm'}>
-                            Login
-                        </Button>
-                    </NavLink>
-                )}
+                {/* <NavLink to='/login'>
+                    <Button variant={'default'} size={'sm'}>
+                        Login
+                    </Button>
+                </NavLink> */}
+
+                <NavLink to='/admin'>
+                    <Button variant={'ghost'} size={'sm'}>
+                        Dashboard
+                    </Button>
+                </NavLink>
             </div>
         </header>
     );

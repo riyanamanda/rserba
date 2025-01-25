@@ -29,15 +29,10 @@ import {
     SidebarMenuSubItem,
     useSidebar,
 } from '@/components/ui/sidebar';
-import { useAuth } from '@/hooks/useAuth';
-import { RootState } from '@/state/store';
-import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const { isMobile } = useSidebar();
-    const user = useSelector((state: RootState) => state.auth);
-    const { logout } = useAuth();
 
     return (
         <Sidebar variant='inset' {...props}>
@@ -169,16 +164,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                     className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'>
                                     <Avatar className='h-8 w-8 rounded-lg'>
                                         <AvatarImage
-                                            src={`https://ui-avatars.com/api/?name=${user.name}`}
-                                            alt={`${user.name} avatar`}
+                                            src={`https://ui-avatars.com/api/?name=Riyan Amanda`}
+                                            alt={`Riyan Amanda avatar`}
                                             className='rounded-full'
                                         />
                                     </Avatar>
                                     <div className='grid flex-1 text-left text-sm leading-tight'>
-                                        <span className='truncate font-semibold'>{user.name}</span>
-                                        <span className='truncate text-xs'>{user.email}</span>
+                                        <span className='truncate font-semibold'>Riyan Amanda</span>
+                                        <span className='truncate text-xs'>admin@email.com</span>
                                         <div className='truncate text-xs'>
-                                            Logged as <span className='font-bold text-primary'>{user.role?.toLocaleLowerCase()}</span>
+                                            Logged as <span className='font-bold text-primary'>SUPERADMIN</span>
                                         </div>
                                     </div>
                                     <ChevronsUpDown className='ml-auto size-4' />
@@ -193,14 +188,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                     <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
                                         <Avatar className='h-8 w-8 rounded-lg'>
                                             <AvatarImage
-                                                src={`https://ui-avatars.com/api/?name=${user.name}`}
-                                                alt={`${user.name} avatar`}
+                                                src={`https://ui-avatars.com/api/?name=Riyan Amanda`}
+                                                alt={`Riyan Amanda avatar`}
                                                 className='rounded-full'
                                             />
                                         </Avatar>
                                         <div className='grid flex-1 text-left text-sm leading-tight'>
-                                            <span className='truncate font-semibold'>{user.name}</span>
-                                            <span className='truncate text-xs'>{user.email}</span>
+                                            <span className='truncate font-semibold'>Riyan Amanda</span>
+                                            <span className='truncate text-xs'>admin@email.com</span>
                                         </div>
                                     </div>
                                 </DropdownMenuLabel>
@@ -212,7 +207,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                     </DropdownMenuItem>
                                 </DropdownMenuGroup>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem onClick={() => logout()} className='cursor-pointer'>
+                                <DropdownMenuItem className='cursor-pointer'>
                                     <LogOut />
                                     Log out
                                 </DropdownMenuItem>

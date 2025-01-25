@@ -1,28 +1,13 @@
-import { client } from '@/lib/axios';
+import { api } from '@/lib/axios';
+import queryClient from '@/lib/queryClient';
 import showToast from '@/lib/toast';
 import { useNavigate } from 'react-router';
-import { useCookie } from './useCookie';
-import { useQueryClient } from 'react-query';
 
 export const useCategory = () => {
     const navigate = useNavigate();
-    const cookie = useCookie();
-    const queryClient = useQueryClient();
 
     const getCategories = async (options: { pageIndex: number; pageSize: number }) => {
-        return await client
-            .get(`/api/category?page=${options.pageIndex}&size=${options.pageSize}`, {
-                headers: {
-                    Authorization: `Bearer ${cookie.getCookie('erba-auth')}`,
-                },
-            })
-            .then((res) => res.data)
-            .catch((error) => {
-                if (error.status === 401) {
-                    navigate(-1);
-                    showToast('error', error.message);
-                }
-            });
+        return await api.get(`/api/category?page=${options.pageIndex}&size=${options.pageSize}`);
     };
 
     const createCategory = async (
@@ -32,12 +17,8 @@ export const useCategory = () => {
     ) => {
         setIsLoading(true);
 
-        await client
-            .post('/api/category', data, {
-                headers: {
-                    Authorization: `Bearer ${cookie.getCookie('erba-auth')}`,
-                },
-            })
+        await api
+            .post('/api/category', data)
             .then(() => {
                 showToast('success', 'Category created successfully');
                 queryClient.invalidateQueries('categories');

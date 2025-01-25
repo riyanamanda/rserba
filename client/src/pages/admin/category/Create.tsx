@@ -54,7 +54,7 @@ const CreateCategoryPage = () => {
                                     <FormMessage />
 
                                     <div className='pt-3 flex items-center justify-end gap-5'>
-                                        <Button variant={'ghost'} size={'sm'} onClick={() => navigate('/admin/category')}>
+                                        <Button type='button' variant={'ghost'} size={'sm'} onClick={() => navigate('/admin/category')}>
                                             Cancel
                                         </Button>
 

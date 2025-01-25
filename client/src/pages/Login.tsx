@@ -1,17 +1,11 @@
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Toaster } from '@/components/ui/sonner';
-import { useAuth } from '@/hooks/useAuth';
-import { useCookie } from '@/hooks/useCookie';
-import { RootState } from '@/state/store';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLayoutEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router';
+import { NavLink } from 'react-router';
 import { z } from 'zod';
 
 const formSchema = z.object({
@@ -19,14 +13,10 @@ const formSchema = z.object({
     password: z.string(),
 });
 
-const Login = () => {
-    const isLogged = useSelector((state: RootState) => state.auth.isAuthenticated);
-    const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const { current, login } = useAuth();
-    const cookie = useCookie();
+type FormProps = z.infer<typeof formSchema>;
 
-    const form = useForm<z.infer<typeof formSchema>>({
+const Login = () => {
+    const form = useForm<FormProps>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             email: '',
@@ -34,15 +24,9 @@ const Login = () => {
         },
     });
 
-    const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (data) => {
-        login(data, form, setIsLoading);
+    const onSubmit: SubmitHandler<FormProps> = (data) => {
+        console.log(data);
     };
-
-    useLayoutEffect(() => {
-        const token = cookie.getCookie('erba-auth');
-        if (token !== undefined) current();
-        if (isLogged) navigate('/admin');
-    }, [cookie, current, isLogged, navigate]);
 
     return (
         <>
@@ -98,9 +82,9 @@ const Login = () => {
                                             )}
                                         />
 
-                                        <Button type='submit' className='w-full'>
-                                            {isLoading ? 'Loading ...' : 'Login'}
-                                        </Button>
+                                        {/* <Button type='submit' className='w-full'>
+                                            {isLoading ? <Loading /> : 'Login'}
+                                        </Button> */}
 
                                         <div className='mt-4 text-center text-[12px] leading-relaxed'>
                                             <NavLink to='/' replace={true} className='font-medium text-primary'>
