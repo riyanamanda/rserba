@@ -2,6 +2,7 @@ package com.ran.erba.model.response;
 
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.http.HttpStatusCode;
 
 /**
  * @author Riyan Amanda

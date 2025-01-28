@@ -13,7 +13,8 @@ import org.springframework.data.domain.Page;
 
 public interface CategoryService {
     Page<Category> findAll(int page, int size);
-    void create(CategoryCreateRequest request);
+    void save(CategoryCreateRequest request);
+    Category findById(int id);
     Category findBySlug(String slug);
     void update(String slug, CategoryUpdateRequest request);
     void delete(String slug);

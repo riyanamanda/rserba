@@ -43,7 +43,6 @@ public class CategoryController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Object> getAll(
-            @Valid
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "5") int size
     ) {
@@ -65,7 +64,7 @@ public class CategoryController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<WebResponse> create(@Valid @RequestBody CategoryCreateRequest request) {
-        categoryService.create(request);
+        categoryService.save(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 WebResponse.builder().message("Category created").build()
@@ -86,7 +85,7 @@ public class CategoryController {
             path = "/{slug}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<WebResponse> update(@Valid @PathVariable String slug, @RequestBody CategoryUpdateRequest request) {
+    public ResponseEntity<WebResponse> update(@PathVariable String slug, @Valid @RequestBody CategoryUpdateRequest request) {
         categoryService.update(slug, request);
 
         return new ResponseEntity<>(WebResponse.builder().message("Category updated").build(), HttpStatus.NO_CONTENT);

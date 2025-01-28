@@ -21,7 +21,7 @@ public class UserMapper implements Function<User, UserDto> {
                 user.getName(),
                 user.getEmail(),
                 user.getRole(),
-                user.isEnabled(),
+                user.isActive(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()
         );

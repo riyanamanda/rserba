@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SlugGenerator {
 
-    public String generateSlug(String input) {
+    public String generate(String input) {
         final Slugify slg = Slugify.builder().build();
         final String result = slg.slugify(input);
 

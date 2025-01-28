@@ -1,0 +1,21 @@
+package com.ran.erba.service.interfaces;
+
+import com.ran.erba.model.entity.Post;
+import com.ran.erba.model.request.PostCreateRequest;
+import com.ran.erba.model.request.PostUpdateRequest;
+import org.springframework.data.domain.Page;
+
+/**
+ * @author Riyan Amanda
+ * {@code @linkedin} <a href="https://linkedin.com/in/riyan-amanda">...</a>
+ * @since 26/01/2025, Sunday
+ **/
+
+public interface PostService {
+
+    Page<Post> findAll(int page, int size, boolean status);
+    void save(PostCreateRequest request);
+    Post findBySlug(String slug);
+    void update(String slug, PostUpdateRequest request);
+    void delete(String slug);
+}

@@ -1,13 +1,13 @@
 package com.ran.erba.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Riyan Amanda
@@ -20,12 +20,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "categories", indexes = {
-        @Index(name = "idx_slug", columnList = "slug")
-})
+@Table(name = "categories")
 public class Category extends BaseEntity {
+
     @Column(length = 50, unique = true, nullable = false)
     private String name;
+
     @Column(length = 50, unique = true, nullable = false)
     private String slug;
 }
