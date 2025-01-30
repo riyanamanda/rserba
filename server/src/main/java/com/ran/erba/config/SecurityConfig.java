@@ -48,7 +48,8 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(
-                                "/api/login"
+                                "/api/login",
+                                "/api/file/serve/*"
                         )
                         .permitAll()
                         .anyRequest()
