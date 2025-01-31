@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 /**
@@ -22,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final SlugGenerator slugGenerator;
@@ -60,7 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void update(String slug, CategoryUpdateRequest request) {
         Category category = categoryRepository.findBySlug(slug).orElse(null);
-        Category newCategory = categoryRepository.findBySlug(slug).orElse(null);
+        String newSlug = slugGenerator.generate(request.getName());
 
         // Check if category is present
         if (category == null) {
@@ -68,8 +70,10 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         // Check if category and new category is not match
-        if (newCategory != null && newCategory.getSlug().equals(category.getSlug())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Category '" + slug + "' already exist");
+        if (!newSlug.equals(category.getSlug())) {
+            if (categoryRepository.findBySlug(newSlug).isPresent()) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Category '" + newSlug + "' already exist");
+            }
         }
 
         category.setName(request.getName());

@@ -1,6 +1,6 @@
 package com.ran.erba.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ran.erba.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -29,12 +28,13 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    @Qualifier("handlerExceptionResolver")
-    private HandlerExceptionResolver exceptionResolver;
+    private final HandlerExceptionResolver exceptionResolver;
+    private final UserService userService;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    public SecurityConfig(@Qualifier("handlerExceptionResolver") HandlerExceptionResolver exceptionResolver, UserService userService) {
+        this.exceptionResolver = exceptionResolver;
+        this.userService = userService;
+    }
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -55,7 +55,7 @@ public class SecurityConfig {
                         .anyRequest()
                         .authenticated()
                 )
-                .userDetailsService(userDetailsService)
+                .userDetailsService(userService)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(STATELESS)
                 )

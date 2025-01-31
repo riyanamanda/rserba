@@ -1,6 +1,7 @@
 package com.ran.erba.service.implement;
 
 import com.ran.erba.repository.UserRepository;
+import com.ran.erba.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override

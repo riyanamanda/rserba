@@ -66,9 +66,7 @@ public class CategoryController {
     public ResponseEntity<WebResponse> create(@Valid @RequestBody CategoryCreateRequest request) {
         categoryService.save(request);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(
-                WebResponse.builder().message("Category created").build()
-        );
+        return new ResponseEntity<>(WebResponse.builder().message("Success").build(), HttpStatus.CREATED);
     }
 
     @GetMapping(
@@ -88,7 +86,7 @@ public class CategoryController {
     public ResponseEntity<WebResponse> update(@PathVariable String slug, @Valid @RequestBody CategoryUpdateRequest request) {
         categoryService.update(slug, request);
 
-        return new ResponseEntity<>(WebResponse.builder().message("Category updated").build(), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(WebResponse.builder().message("Category updated").build(), HttpStatus.OK);
     }
 
     @DeleteMapping(
@@ -98,6 +96,6 @@ public class CategoryController {
     public ResponseEntity<WebResponse> delete(@PathVariable String slug) {
         categoryService.delete(slug);
 
-        return new ResponseEntity<>(WebResponse.builder().message("Category deleted").build(), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(WebResponse.builder().message("Category deleted").build(), HttpStatus.OK);
     }
 }
