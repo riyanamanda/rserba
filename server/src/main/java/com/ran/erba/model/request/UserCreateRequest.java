@@ -11,12 +11,13 @@ import lombok.Data;
 /**
  * @author Riyan Amanda
  * {@code @linkedin} <a href="https://linkedin.com/in/riyan-amanda">...</a>
- * @since 25/12/2024, Wednesday
+ * @since 01/02/2025, Saturday
  **/
 
 @Data
 @Builder
-public class RegisterRequest {
+public class UserCreateRequest {
+
     @NotBlank(message = "Name is required")
     @Size(min = 3, max = 25)
     private String name;

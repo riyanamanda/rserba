@@ -1,8 +1,6 @@
 package com.ran.erba.service.interfaces;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import com.ran.erba.model.request.UserCreateRequest;
 
 /**
  * @author Riyan Amanda
@@ -10,6 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * @since 01/02/2025, Saturday
  **/
 
-public interface UserService extends UserDetailsService {
-    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+public interface UserService {
+    void save(UserCreateRequest request);
 }

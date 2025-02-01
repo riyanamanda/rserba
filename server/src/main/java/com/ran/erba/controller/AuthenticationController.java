@@ -4,7 +4,6 @@ import com.ran.erba.mapper.UserMapper;
 import com.ran.erba.model.dto.LoginDto;
 import com.ran.erba.model.entity.User;
 import com.ran.erba.model.request.LoginRequest;
-import com.ran.erba.model.request.RegisterRequest;
 import com.ran.erba.service.interfaces.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -27,13 +26,6 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
     private final UserMapper userMapper;
-
-    @PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> register(@Valid @RequestBody RegisterRequest request) {
-        authenticationService.register(request);
-
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
 
     @PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> login(@Valid @RequestBody LoginRequest request) {

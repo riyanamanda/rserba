@@ -1,6 +1,6 @@
 package com.ran.erba.config;
 
-import com.ran.erba.service.interfaces.UserService;
+import com.ran.erba.service.interfaces.UserDetailService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,11 +29,11 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfig {
 
     private final HandlerExceptionResolver exceptionResolver;
-    private final UserService userService;
+    private final UserDetailService userDetailService;
 
-    public SecurityConfig(@Qualifier("handlerExceptionResolver") HandlerExceptionResolver exceptionResolver, UserService userService) {
+    public SecurityConfig(@Qualifier("handlerExceptionResolver") HandlerExceptionResolver exceptionResolver, UserDetailService userDetailService) {
         this.exceptionResolver = exceptionResolver;
-        this.userService = userService;
+        this.userDetailService = userDetailService;
     }
 
     @Bean
@@ -55,7 +55,7 @@ public class SecurityConfig {
                         .anyRequest()
                         .authenticated()
                 )
-                .userDetailsService(userService)
+                .userDetailsService(userDetailService)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(STATELESS)
                 )
