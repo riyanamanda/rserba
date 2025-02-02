@@ -59,7 +59,7 @@ public class PostController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<WebResponse> create(@RequestPart("post") String request, @RequestPart MultipartFile image) throws JsonProcessingException {
+    public ResponseEntity<WebResponse> create(@RequestPart("post") String request, @RequestPart("image") MultipartFile image) throws JsonProcessingException {
         PostCreateRequest post = convertToPostRequest(request);
         validator.validate(post);
 

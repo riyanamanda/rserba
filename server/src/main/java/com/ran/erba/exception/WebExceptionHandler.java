@@ -11,7 +11,6 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,40 +34,30 @@ public class WebExceptionHandler {
         return new ResponseEntity<>(WebResponse.builder().message(exception.getReason()).build(), exception.getStatusCode());
     }
 
+    private String convertToSnakeCase(String input) {
+        return input.replaceAll("/[-._]|(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/gm", "_").toLowerCase();
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ValidationError> handleConstraintViolationException(ConstraintViolationException exception) {
-        List<FieldError> errors = exception.getConstraintViolations()
-                .stream()
-                .map(violation -> new FieldError(
-                        violation.getRootBeanClass().getName(),
-                        violation.getPropertyPath().toString(),
-                        violation.getMessage()))
-                .toList();
+        Map<String, String> errors = new HashMap<>();
+        exception.getConstraintViolations().forEach(violation -> {
+            errors.put(convertToSnakeCase(violation.getPropertyPath().toString()), violation.getMessage());
+        });
 
-        Map<String, String> errorMap = new HashMap<>();
-        for (FieldError error : errors) {
-            errorMap.put(
-                    error.getField().replaceAll("/[-._]|(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/gm", "_").toLowerCase(),
-                    error.getDefaultMessage());
-        }
-
-        return new ResponseEntity<>(ValidationError.builder().errors(errorMap).build(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ValidationError.builder().errors(errors).build(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ValidationError> handleValidationErrors(MethodArgumentNotValidException exception) {
-        Map<String, String> errors = new HashMap<>();
+        Map<String, String> errors = exception.getBindingResult().getFieldErrors().stream()
+                .collect(HashMap::new, (map, fieldError) ->
+                        map.put(convertToSnakeCase(fieldError.getField()), fieldError.getDefaultMessage()),
+                        HashMap::putAll);
 
-        exception.getBindingResult().getAllErrors().forEach((error) -> {
-            FieldError fe = (FieldError) error;
-            errors.put(
-                    fe.getField().replaceAll("/[-._]|(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/gm", "_").toLowerCase(),
-                    error.getDefaultMessage());
-        });
-
-        return new ResponseEntity<>(ValidationError.builder().errors(errors).build(), exception.getStatusCode());
+        return new ResponseEntity<>(ValidationError.builder().errors(errors).build(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({UsernameNotFoundException.class, BadCredentialsException.class})
