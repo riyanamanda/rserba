@@ -4,24 +4,22 @@ import com.ran.erba.model.response.ValidationError;
 import com.ran.erba.model.response.WebResponse;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AccountStatusException;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,7 +36,29 @@ public class WebExceptionHandler {
         return new ResponseEntity<>(WebResponse.builder().message(exception.getReason()).build(), exception.getStatusCode());
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ValidationError> handleConstraintViolationException(ConstraintViolationException exception) {
+        List<FieldError> errors = exception.getConstraintViolations()
+                .stream()
+                .map(violation -> new FieldError(
+                        violation.getRootBeanClass().getName(),
+                        violation.getPropertyPath().toString(),
+                        violation.getMessage()))
+                .toList();
+
+        Map<String, String> errorMap = new HashMap<>();
+        for (FieldError error : errors) {
+            errorMap.put(
+                    error.getField().replaceAll("/[-._]|(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/gm", "_").toLowerCase(),
+                    error.getDefaultMessage());
+        }
+
+        return new ResponseEntity<>(ValidationError.builder().errors(errorMap).build(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ValidationError> handleValidationErrors(MethodArgumentNotValidException exception) {
         Map<String, String> errors = new HashMap<>();
 
@@ -49,11 +69,7 @@ public class WebExceptionHandler {
                     error.getDefaultMessage());
         });
 
-        return ResponseEntity.status(exception.getStatusCode())
-                .body(ValidationError.builder()
-                        .errors(errors)
-                        .build()
-                );
+        return new ResponseEntity<>(ValidationError.builder().errors(errors).build(), exception.getStatusCode());
     }
 
     @ExceptionHandler({UsernameNotFoundException.class, BadCredentialsException.class})

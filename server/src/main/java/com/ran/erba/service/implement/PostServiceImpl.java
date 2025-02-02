@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 /**
@@ -41,7 +42,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void save(PostCreateRequest request) {
+    public void save(PostCreateRequest request, MultipartFile image) {
         String slug = slugGenerator.generate(request.getTitle());
 
         if (postRepository.findBySlug(slug).isPresent()) {

@@ -4,6 +4,7 @@ import com.ran.erba.model.entity.Post;
 import com.ran.erba.model.request.PostCreateRequest;
 import com.ran.erba.model.request.PostUpdateRequest;
 import org.springframework.data.domain.Page;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Riyan Amanda
@@ -14,7 +15,7 @@ import org.springframework.data.domain.Page;
 public interface PostService {
 
     Page<Post> findAll(int page, int size, boolean status);
-    void save(PostCreateRequest request);
+    void save(PostCreateRequest request, MultipartFile image);
     Post findBySlug(String slug);
     void update(String slug, PostUpdateRequest request);
     void delete(String slug);
