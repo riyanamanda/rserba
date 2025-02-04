@@ -1,12 +1,12 @@
 package com.ran.erba.mapper;
 
-import com.ran.erba.model.dto.PostDto;
-import com.ran.erba.model.dto.UserDto;
-import com.ran.erba.model.entity.Post;
+import java.util.function.Function;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.function.Function;
+import com.ran.erba.model.dto.PostDto;
+import com.ran.erba.model.entity.Post;
 
 /**
  * @author Riyan Amanda

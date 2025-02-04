@@ -1,11 +1,10 @@
 package com.ran.erba.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ran.erba.model.entity.Category;
-import com.ran.erba.model.entity.User;
-import lombok.Builder;
-
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Builder;
 
 /**
  * @author Riyan Amanda
