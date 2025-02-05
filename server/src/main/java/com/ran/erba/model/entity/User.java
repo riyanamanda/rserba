@@ -1,24 +1,18 @@
 package com.ran.erba.model.entity;
 
-import java.util.Collection;
-import java.util.List;
-
+import com.ran.erba.enums.Role;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.ran.erba.enums.Role;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import java.security.Principal;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Riyan Amanda
@@ -26,17 +20,16 @@ import lombok.NoArgsConstructor;
  * @since 25/12/2024, Wednesday
  **/
 
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity implements UserDetails {
+public class User extends BaseEntity implements UserDetails, Principal {
     @Column(nullable = false)
     private String name;
 
-    @Email
     @Column(nullable = false, unique = true)
     private String email;
 

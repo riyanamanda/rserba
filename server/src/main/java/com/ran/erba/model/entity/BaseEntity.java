@@ -2,8 +2,9 @@ package com.ran.erba.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,9 +16,10 @@ import java.time.LocalDateTime;
  * @since 15/01/2025, Wednesday
  **/
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @MappedSuperclass
 public class BaseEntity {
     @Id
