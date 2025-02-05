@@ -2,8 +2,7 @@ package com.ran.erba.model.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 /**
  * @author Riyan Amanda
@@ -11,7 +10,10 @@ import lombok.Data;
  * @since 26/12/2024, Thursday
  **/
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class LoginRequest {
     @NotBlank(message = "Email is required")
