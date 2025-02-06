@@ -15,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -50,8 +52,7 @@ public class PostServiceImpl implements PostService {
         }
 
         Category category = categoryService.findById(request.getCategoryId());
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = (User) userDetailsService.loadUserByUsername(username);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         Post post = new Post();
         post.setTitle(request.getTitle());
@@ -60,7 +61,9 @@ public class PostServiceImpl implements PostService {
         post.setCategory(category);
         post.setAuthor(user);
 
-        postRepository.save(post);
+        Post newPost = postRepository.save(post);
+
+        System.out.println("New post: " + newPost.getId());
     }
 
     @Override
