@@ -1,7 +1,6 @@
 package com.ran.erba.controller;
 
 import com.ran.erba.model.request.UserCreateRequest;
-import com.ran.erba.model.response.WebResponse;
 import com.ran.erba.service.interfaces.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +29,8 @@ public class UserController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<WebResponse> create(@Valid @RequestBody UserCreateRequest request) {
+    public ResponseEntity<Object> create(@Valid @RequestBody UserCreateRequest request) {
         userService.save(request);
-
-        return new ResponseEntity<>(WebResponse.builder().message("User created").build(), HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

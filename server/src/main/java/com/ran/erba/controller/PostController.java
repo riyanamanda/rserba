@@ -1,15 +1,11 @@
 package com.ran.erba.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ran.erba.mapper.PostMapper;
 import com.ran.erba.model.dto.PageableDto;
 import com.ran.erba.model.entity.Post;
 import com.ran.erba.model.request.PostCreateRequest;
 import com.ran.erba.model.request.PostUpdateRequest;
-import com.ran.erba.model.response.WebResponse;
 import com.ran.erba.service.interfaces.PostService;
-import com.ran.erba.utils.RequestValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Riyan Amanda
@@ -31,8 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class PostController {
     private final PostService postService;
     private final PostMapper postMapper;
-    private final ObjectMapper objectMapper;
-    private final RequestValidator validator;
 
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -59,13 +52,9 @@ public class PostController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<WebResponse> create(@RequestPart("post") String request, @RequestPart("image") MultipartFile image) throws JsonProcessingException {
-        PostCreateRequest post = convertToPostRequest(request);
-        validator.validate(post);
-
-        postService.save(post, image);
-
-        return new ResponseEntity<>(WebResponse.builder().message("Post created successfully").build(), HttpStatus.CREATED);
+    public ResponseEntity<Object> create(@Valid @RequestBody PostCreateRequest request) {
+        Post post = postService.save(request);
+        return new ResponseEntity<>(postMapper.apply(post), HttpStatus.CREATED);
     }
 
     @GetMapping(
@@ -83,23 +72,19 @@ public class PostController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<WebResponse> update(@PathVariable String slug, @Valid @RequestBody PostUpdateRequest request) {
+    public ResponseEntity<Object> update(@PathVariable String slug, @Valid @RequestBody PostUpdateRequest request) {
         postService.update(slug, request);
 
-        return new ResponseEntity<>(WebResponse.builder().message("Post updated successfully").build(), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(
             path = "/{slug}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<WebResponse> delete(@PathVariable String slug) {
+    public ResponseEntity<Object> delete(@PathVariable String slug) {
         postService.delete(slug);
 
-        return new ResponseEntity<>(WebResponse.builder().message("Post deleted successfully").build(), HttpStatus.ACCEPTED);
-    }
-
-    private PostCreateRequest convertToPostRequest(String data) throws JsonProcessingException {
-        return objectMapper.readValue(data, PostCreateRequest.class);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

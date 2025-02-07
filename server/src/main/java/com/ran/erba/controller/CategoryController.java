@@ -1,29 +1,19 @@
 package com.ran.erba.controller;
 
-import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.ran.erba.mapper.CategoryMapper;
 import com.ran.erba.model.dto.PageableDto;
 import com.ran.erba.model.entity.Category;
 import com.ran.erba.model.request.CategoryCreateRequest;
 import com.ran.erba.model.request.CategoryUpdateRequest;
-import com.ran.erba.model.response.WebResponse;
 import com.ran.erba.service.interfaces.CategoryService;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Riyan Amanda
@@ -63,10 +53,9 @@ public class CategoryController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<WebResponse> create(@Valid @RequestBody CategoryCreateRequest request) {
+    public ResponseEntity<ObjectError> create(@Valid @RequestBody CategoryCreateRequest request) {
         categoryService.save(request);
-
-        return new ResponseEntity<>(WebResponse.builder().message("Success").build(), HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping(
@@ -75,7 +64,6 @@ public class CategoryController {
     )
     public ResponseEntity<Object> findBySlug(@PathVariable String slug) {
         Category category = categoryService.findBySlug(slug);
-
         return new ResponseEntity<>(categoryMapper.apply(category), HttpStatus.OK);
     }
 
@@ -83,19 +71,17 @@ public class CategoryController {
             path = "/{slug}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<WebResponse> update(@PathVariable String slug, @Valid @RequestBody CategoryUpdateRequest request) {
+    public ResponseEntity<Object> update(@PathVariable String slug, @Valid @RequestBody CategoryUpdateRequest request) {
         categoryService.update(slug, request);
-
-        return new ResponseEntity<>(WebResponse.builder().message("Category updated").build(), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(
             path = "/{slug}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<WebResponse> delete(@PathVariable String slug) {
+    public ResponseEntity<Object> delete(@PathVariable String slug) {
         categoryService.delete(slug);
-
-        return new ResponseEntity<>(WebResponse.builder().message("Category deleted").build(), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

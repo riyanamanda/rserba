@@ -15,12 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 /**
@@ -36,7 +32,6 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final SlugGenerator slugGenerator;
     private final CategoryService categoryService;
-    private final UserDetailsService userDetailsService;
 
     @Override
     public Page<Post> findAll(int page, int size, boolean status) {
@@ -44,7 +39,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void save(PostCreateRequest request, MultipartFile image) {
+    public Post save(PostCreateRequest request) {
         String slug = slugGenerator.generate(request.getTitle());
 
         if (postRepository.findBySlug(slug).isPresent()) {
@@ -61,9 +56,7 @@ public class PostServiceImpl implements PostService {
         post.setCategory(category);
         post.setAuthor(user);
 
-        Post newPost = postRepository.save(post);
-
-        System.out.println("New post: " + newPost.getId());
+        return postRepository.save(post);
     }
 
     @Override

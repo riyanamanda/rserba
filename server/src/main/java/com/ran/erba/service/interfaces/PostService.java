@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface PostService {
 
     Page<Post> findAll(int page, int size, boolean status);
-    void save(PostCreateRequest request, MultipartFile image);
+    Post save(PostCreateRequest request);
     Post findBySlug(String slug);
     void update(String slug, PostUpdateRequest request);
     void delete(String slug);
