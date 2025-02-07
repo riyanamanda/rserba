@@ -2,8 +2,13 @@ package com.ran.erba.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ran.erba.model.entity.Category;
+import com.ran.erba.model.request.CategoryCreateRequest;
+import com.ran.erba.repository.CategoryRepository;
 import com.ran.erba.utils.SlugGenerator;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,21 +27,23 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestMethodOrder(OrderAnnotation.class)
 class CategoryControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
     private SlugGenerator slugGenerator;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Test
     @WithMockUser(username = "admin@email.com", roles = "SUPERADMIN")
+    @Order(value = 1)
     void test_create_category() throws Exception {
         String categoryName = "Test Save Category";
-
         Category category = new Category();
         category.setName(categoryName);
         category.setSlug(slugGenerator.generate(categoryName));
@@ -47,5 +54,57 @@ class CategoryControllerTest {
                         .content(objectMapper.writeValueAsString(category))
                 )
                 .andExpect(MockMvcResultMatchers.status().is(HttpStatus.CREATED.value()));
+    }
+
+    @Test
+    @Order(value = 2)
+    void test_get_all_categories() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/category")
+                )
+                .andExpect(MockMvcResultMatchers.status().is(HttpStatus.OK.value()));
+    }
+
+    @Test
+    @Order(value = 3)
+    void test_find_category_by_slug() throws Exception {
+        String slug = "test-save-category";
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/category/" + slug)
+                )
+                .andExpect(MockMvcResultMatchers.status().is(HttpStatus.OK.value()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Test Save Category"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.slug").value(slug));
+    }
+
+    @Test
+    @WithMockUser(username = "admin@email.com", roles = "SUPERADMIN")
+    @Order(value = 4)
+    void test_update_category() throws Exception {
+        String newCategoryName = "Test Category Update";
+
+        CategoryCreateRequest request = new CategoryCreateRequest();
+        request.setName(newCategoryName);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .patch("/api/category/test-save-category")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                )
+                .andExpect(MockMvcResultMatchers.status().is(HttpStatus.OK.value()));
+    }
+
+    @Test
+    @WithMockUser(username = "admin@email.com", roles = "SUPERADMIN")
+    @Order(value = 5)
+    void test_delete_category_by_slug() throws Exception {
+        String slug = "test-category-update";
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/category/" + slug)
+                )
+                .andExpect(MockMvcResultMatchers.status().is(HttpStatus.OK.value()));
     }
 }

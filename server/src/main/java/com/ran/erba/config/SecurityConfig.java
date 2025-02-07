@@ -4,6 +4,7 @@ import com.ran.erba.service.interfaces.UserDetailService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -27,7 +28,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
 
     private final HandlerExceptionResolver exceptionResolver;
@@ -51,7 +52,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(
                                 "/api/login",
-                                "/api/file/serve/*"
+                                "/api/file/serve/"
+                        )
+                        .permitAll()
+                        .requestMatchers(
+                                HttpMethod.GET, "/api/category/**"
                         )
                         .permitAll()
                         .anyRequest()
