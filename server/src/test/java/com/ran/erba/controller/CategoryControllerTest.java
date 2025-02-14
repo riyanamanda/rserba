@@ -3,7 +3,6 @@ package com.ran.erba.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ran.erba.model.entity.Category;
 import com.ran.erba.model.request.CategoryCreateRequest;
-import com.ran.erba.repository.CategoryRepository;
 import com.ran.erba.utils.SlugGenerator;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -36,8 +35,6 @@ class CategoryControllerTest {
     private ObjectMapper objectMapper;
     @Autowired
     private SlugGenerator slugGenerator;
-    @Autowired
-    private CategoryRepository categoryRepository;
 
     @Test
     @WithMockUser(username = "admin@email.com", roles = "SUPERADMIN")

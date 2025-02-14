@@ -4,7 +4,6 @@ import com.ran.erba.model.entity.Post;
 import com.ran.erba.model.request.PostCreateRequest;
 import com.ran.erba.model.request.PostUpdateRequest;
 import org.springframework.data.domain.Page;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Riyan Amanda
