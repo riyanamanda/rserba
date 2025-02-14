@@ -49,7 +49,7 @@ public class PostController {
     }
 
     @PostMapping(
-            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Object> create(@Valid @RequestBody PostCreateRequest request) {

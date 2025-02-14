@@ -30,8 +30,4 @@ public class PostUpdateRequest {
     @NotBlank(message = "Content is required")
     @Size(min = 10)
     private String content;
-
-    @NotNull(message = "Publish status is required")
-    @JsonProperty("is_published")
-    private Boolean isPublished;
 }

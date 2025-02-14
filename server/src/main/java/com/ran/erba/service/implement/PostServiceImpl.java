@@ -79,7 +79,6 @@ public class PostServiceImpl implements PostService {
         post.setTitle(request.getTitle());
         post.setSlug(newPostSlug);
         post.setContent(request.getContent());
-        post.setIsPublished(request.getIsPublished());
 
         postRepository.save(post);
     }
