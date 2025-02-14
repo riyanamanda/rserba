@@ -15,6 +15,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
@@ -49,12 +50,21 @@ public class WebExceptionHandler {
         return new ResponseEntity<>(ValidationError.builder().errors(errors).build(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ValidationError> handleMissingServletRequestPartException(MissingServletRequestPartException exception) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put(convertToSnakeCase(exception.getRequestPartName()), exception.getMessage());
+
+        return new ResponseEntity<>(ValidationError.builder().errors(errors).build(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ValidationError> handleValidationErrors(MethodArgumentNotValidException exception) {
         Map<String, String> errors = exception.getBindingResult().getFieldErrors().stream()
                 .collect(HashMap::new, (map, fieldError) ->
-                        map.put(convertToSnakeCase(fieldError.getField()), fieldError.getDefaultMessage()),
+                                map.put(convertToSnakeCase(fieldError.getField()), fieldError.getDefaultMessage()),
                         HashMap::putAll);
 
         return new ResponseEntity<>(ValidationError.builder().errors(errors).build(), HttpStatus.BAD_REQUEST);

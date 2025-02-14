@@ -13,6 +13,6 @@ import java.io.InputStream;
  **/
 
 public interface FileService {
-    void upload(String path, String filename, MultipartFile file) throws IOException;
-    InputStream serve(String filename) throws FileNotFoundException;
+    void uploadPostImage(Integer postId, MultipartFile file) throws IOException;
+    InputStream servePostImage(String filename) throws FileNotFoundException;
 }

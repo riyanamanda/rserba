@@ -37,6 +37,8 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
+    private String image = null;
+
     @Column(name = "is_published", nullable = false)
     private Boolean isPublished = true;
 }

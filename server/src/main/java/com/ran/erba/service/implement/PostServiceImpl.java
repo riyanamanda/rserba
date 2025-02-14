@@ -29,6 +29,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequiredArgsConstructor
 @Transactional
 public class PostServiceImpl implements PostService {
+
     private final PostRepository postRepository;
     private final SlugGenerator slugGenerator;
     private final CategoryService categoryService;
@@ -57,6 +58,11 @@ public class PostServiceImpl implements PostService {
         post.setAuthor(user);
 
         return postRepository.save(post);
+    }
+
+    @Override
+    public Post findById(Integer id) {
+        return postRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Post with id: " + id + " not found"));
     }
 
     @Override

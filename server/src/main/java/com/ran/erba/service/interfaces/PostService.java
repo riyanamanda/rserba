@@ -16,6 +16,7 @@ public interface PostService {
 
     Page<Post> findAll(int page, int size, boolean status);
     Post save(PostCreateRequest request);
+    Post findById(Integer id);
     Post findBySlug(String slug);
     void update(String slug, PostUpdateRequest request);
     void delete(String slug);

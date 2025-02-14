@@ -3,8 +3,13 @@ package com.ran.erba.controller;
 import java.io.IOException;
 import java.io.InputStream;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,20 +37,21 @@ public class FileController {
     private final FileService fileService;
 
     @PostMapping(
-            path = "/upload"
+            path = "/upload/post/{post-id}",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
-    public String upload(@RequestPart MultipartFile file) throws IOException {
-        String filename = "1-imagenameishere" + "." + FilenameUtils.getExtension(file.getOriginalFilename());
-        fileService.upload("image", filename, file);
-        return "success";
+    public ResponseEntity<String> uploadPostImage(@PathVariable("post-id") Integer postId, @RequestPart MultipartFile image) throws IOException {
+        fileService.uploadPostImage(postId, image);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(
-            path = "/serve/{filename}",
+            path = "/serve/post/{filename}",
             produces = MediaType.IMAGE_PNG_VALUE
     )
-    public void serve(@PathVariable String filename, HttpServletResponse response) throws IOException {
-        InputStream resource = fileService.serve(filename);
+    public void servePostImage(@PathVariable String filename, HttpServletResponse response) throws IOException {
+        InputStream resource = fileService.servePostImage(filename);
         response.setContentType(MediaType.IMAGE_PNG_VALUE);
         StreamUtils.copy(resource, response.getOutputStream());
     }
