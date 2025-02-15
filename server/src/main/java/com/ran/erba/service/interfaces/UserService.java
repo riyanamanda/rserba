@@ -1,6 +1,9 @@
 package com.ran.erba.service.interfaces;
 
+import com.ran.erba.model.entity.User;
 import com.ran.erba.model.request.UserCreateRequest;
+import com.ran.erba.model.request.UserUpdateRequest;
+import org.springframework.data.domain.Page;
 
 /**
  * @author Riyan Amanda
@@ -9,5 +12,7 @@ import com.ran.erba.model.request.UserCreateRequest;
  **/
 
 public interface UserService {
+    Page<User> findAll(int page, int size);
     void save(UserCreateRequest request);
+    void update(Integer userId, UserUpdateRequest request);
 }

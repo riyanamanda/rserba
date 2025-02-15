@@ -73,7 +73,7 @@ public class CategoryController {
     )
     public ResponseEntity<Object> update(@PathVariable String slug, @Valid @RequestBody CategoryUpdateRequest request) {
         categoryService.update(slug, request);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(

@@ -75,7 +75,7 @@ public class PostController {
     public ResponseEntity<Object> update(@PathVariable String slug, @Valid @RequestBody PostUpdateRequest request) {
         postService.update(slug, request);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(
