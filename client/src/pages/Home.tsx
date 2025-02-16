@@ -9,8 +9,7 @@ import { Bed, Megaphone, MoveRightIcon } from 'lucide-react';
 import { FaHospitalUser, FaUserDoctor } from 'react-icons/fa6';
 import { NavLink } from 'react-router';
 
-import { doctor, poly } from '@/constans';
-import DoctorCard from '@/components/DoctorCard';
+import { poly } from '@/constans';
 
 const Home = () => {
     return (
@@ -77,7 +76,7 @@ const Home = () => {
             </section>
 
             {/* Dokter */}
-            <section className='my-20 w-full pb-14'>
+            {/* <section className='my-20 w-full pb-14'>
                 <div className='max-w-[90rem] mx-auto'>
                     <div className='mx-auto w-fit space-y-5'>
                         <h1 className='text-center text-xl mb-2 font-semibold leading-relaxed tracking-tight'>Dokter</h1>
@@ -89,14 +88,14 @@ const Home = () => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
 
-            {/* Berita */}
-            <section className='my-20 w-full py-14 bg-card text-card-foreground'>
+            {/* Pengumuman dan Promo */}
+            {/* <section className='my-20 w-full py-14 bg-card text-card-foreground'>
                 <div className='max-w-[90rem] mx-auto text-center'>
                     <p>Disni pengumuman dan promo</p>
                 </div>
-            </section>
+            </section> */}
 
             {/* Count Up */}
             <section>
@@ -114,11 +113,11 @@ const Home = () => {
             </section>
 
             {/* Berita */}
-            <section className='my-20 w-full py-14 bg-card text-card-foreground'>
+            {/* <section className='my-20 w-full py-14 bg-card text-card-foreground'>
                 <div className='max-w-[90rem] mx-auto text-center'>
                     <p>Disni Berita terbaru</p>
                 </div>
-            </section>
+            </section> */}
 
             {/* FAQ */}
             <section className='py-10 mt-10'>
