@@ -46,7 +46,7 @@ const Home = () => {
                 </div>
 
                 <div className='w-6/12 rounded-lg overflow-hidden shadow-xl shadow-card/20'>
-                    <div className='h-[410px] w-[770] flex items-center justify-center bg-accent text-accent-foreground text-xs'>
+                    <div className='h-[410px] w-[770px] flex items-center justify-center bg-accent text-accent-foreground text-xs'>
                         form cari dokter
                     </div>
                 </div>

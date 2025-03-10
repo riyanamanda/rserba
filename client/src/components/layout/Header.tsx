@@ -30,7 +30,7 @@ const Header = () => {
                                     <li>
                                         <NavLink
                                             to='/visi-misi'
-                                            className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'>
+                                            className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'>
                                             <div className='text-sm font-medium leading-none'>Visi dan Misi</div>
                                             <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
                                                 Meingkatkan mutu pelayanan kesehatan.
@@ -41,7 +41,7 @@ const Header = () => {
                                     <li>
                                         <NavLink
                                             to='/struktur-organisasi'
-                                            className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'>
+                                            className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'>
                                             <div className='text-sm font-medium leading-none'>Struktur Organisasi</div>
                                             <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
                                                 Struktur pemerintahan di rumah sakit ernaldi bahar
