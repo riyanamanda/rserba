@@ -41,7 +41,7 @@ public class User extends BaseEntity implements UserDetails, Principal {
     private Role role;
 
     @Column(name = "is_active")
-    private boolean isActive = true;
+    private Boolean isActive = true;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

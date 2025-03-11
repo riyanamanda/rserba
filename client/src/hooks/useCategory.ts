@@ -29,6 +29,10 @@ export const useCategory = () => {
                     showToast('error', error.message);
                 }
 
+                if (error.status === 403) {
+                    showToast('error', error.message);
+                }
+
                 if (error.status === 400) {
                     Object.keys(error.response.data.errors).forEach((err) =>
                         form.setError(err as 'name', {

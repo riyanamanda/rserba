@@ -52,7 +52,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(
                                 "/api/login",
-                                "/api/file/serve/**"
+                                "/api/file/serve/**",
+                                "/api/user/**"
                         )
                         .permitAll()
                         .requestMatchers(
