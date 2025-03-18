@@ -21,13 +21,12 @@ import {
     SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
-    SidebarMenuAction,
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarMenuSub,
     SidebarMenuSubButton,
     SidebarMenuSubItem,
-    useSidebar,
+    useSidebar
 } from '@/components/ui/sidebar';
 import { NavLink } from 'react-router';
 
@@ -79,8 +78,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarMenu>
                 </SidebarGroup>
 
-                {/* Nav without child */}
-                <SidebarGroup className='group-data-[collapsible=icon]:hidden'>
+                <SidebarGroup>
                     <SidebarGroupLabel>Master</SidebarGroupLabel>
                     <SidebarMenu>
                         <SidebarMenuItem>
@@ -92,22 +90,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             </SidebarMenuButton>
                         </SidebarMenuItem>
 
-                        <Collapsible asChild defaultOpen={false}>
+                        <Collapsible asChild defaultOpen={false} className='group/collapsible'>
                             <SidebarMenuItem>
-                                <SidebarMenuButton asChild tooltip='Schools'>
-                                    <a href='#'>
+                                <CollapsibleTrigger asChild>
+                                    <SidebarMenuButton tooltip='Schools' className='cursor-pointer'>
                                         <GraduationCap />
                                         <span>Schools</span>
-                                    </a>
-                                </SidebarMenuButton>
-                                <>
-                                    <CollapsibleTrigger asChild>
-                                        <SidebarMenuAction className='data-[state=open]:rotate-90'>
-                                            <ChevronRight />
-                                            <span className='sr-only'>Toggle</span>
-                                        </SidebarMenuAction>
-                                    </CollapsibleTrigger>
-                                    <CollapsibleContent>
+                                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                    </SidebarMenuButton>
+                                </CollapsibleTrigger>
+
+                                <CollapsibleContent>
                                         <SidebarMenuSub>
                                             <SidebarMenuSubItem>
                                                 <SidebarMenuSubButton asChild>
@@ -124,7 +117,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                             </SidebarMenuSubItem>
                                         </SidebarMenuSub>
                                     </CollapsibleContent>
-                                </>
                             </SidebarMenuItem>
                         </Collapsible>
 
