@@ -1,4 +1,7 @@
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+
+const cookie = new Cookies();
 
 const options = {
     baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -11,7 +14,7 @@ const optionsWithToken = {
     baseURL: import.meta.env.VITE_BACKEND_URL,
     headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${cookie.get('erba-auth')}`,
     },
     withCredentials: true,
 };

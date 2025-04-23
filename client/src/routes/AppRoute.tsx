@@ -11,6 +11,7 @@ import StrukturOrganisasi from '@/pages/StrukturOrganisasi';
 import VisiMisi from '@/pages/VisiMisi';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Route, Routes } from 'react-router';
+import AuthRoute from './AuthRoute';
 
 const AppRoute = () => {
     return (
@@ -23,11 +24,13 @@ const AppRoute = () => {
                 <Route path='berita' element={<Berita />} />
                 <Route path='login' element={<Login />} />
 
-                <Route path='admin' element={<CmsLayout />}>
-                    <Route index element={<Dashboard />} />
-                    <Route path='category'>
-                        <Route index element={<Category />} />
-                        <Route path='create' element={<CreateCategoryPage />} />
+                <Route element={<AuthRoute/>}>
+                    <Route path='admin' element={<CmsLayout />}>
+                        <Route index path='dashboard' element={<Dashboard />} />
+                        <Route path='category'>
+                            <Route index element={<Category />} />
+                            <Route path='create' element={<CreateCategoryPage />} />
+                        </Route>
                     </Route>
                 </Route>
             </Routes>

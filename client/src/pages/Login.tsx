@@ -4,12 +4,13 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import Loading from '@/components/ui/loading';
 import { Toaster } from '@/components/ui/sonner';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/context/authProvider';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useLayoutEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { z } from 'zod';
 
 const formSchema = z.object({
@@ -20,7 +21,8 @@ const formSchema = z.object({
 type FormProps = z.infer<typeof formSchema>;
 
 const Login = () => {
-    const { login } = useAuth();
+    const { currentUser, login, pending } = useAuth();
+    const navigate = useNavigate();
 
     const form = useForm<FormProps>({
         resolver: zodResolver(formSchema),
@@ -35,6 +37,13 @@ const Login = () => {
     const onSubmit: SubmitHandler<FormProps> = (data) => {
         mutation.mutate(data);
     };
+
+    useLayoutEffect(() => {
+        if (currentUser) {
+            navigate('/admin/dashboard', { replace: true });
+        }
+    }
+    , [currentUser, navigate]);
 
     return (
         <>
@@ -91,7 +100,7 @@ const Login = () => {
                                         />
 
                                         <Button type='submit' className='w-full'>
-                                            {form.formState.isLoading ? <Loading /> : 'Login'}
+                                            {pending ? <Loading /> : 'Login'}
                                         </Button>
 
                                         <div className='mt-4 text-center text-[12px] leading-relaxed'>
