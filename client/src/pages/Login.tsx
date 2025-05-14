@@ -36,10 +36,11 @@ const Login = () => {
 
     const onSubmit: SubmitHandler<FormProps> = (data) => {
         mutation.mutate(data);
+        navigate('/admin/dashboard', { replace: true });
     };
 
     useLayoutEffect(() => {
-        if (currentUser) {
+        if (currentUser != null) {
             navigate('/admin/dashboard', { replace: true });
         }
     }

@@ -7,7 +7,7 @@ type AuthContext = {
     currentUser: AuthUser | null;
     pending: boolean;
     login: (data: LoginProps) => Promise<void>;
-    logout: () => void;
+    logout: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContext | undefined>(undefined);
@@ -31,11 +31,11 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
         await fetchMe();
         setPending(false);
-        // navigate('/admin/dashboard');
     };
 
-    const logout = () => {
+    const logout = async () => {
         removeCookie('erba-auth');
+        setCurrentUser(null);
     };
 
     const fetchMe = async () => {

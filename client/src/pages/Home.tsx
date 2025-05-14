@@ -9,7 +9,7 @@ import { Bed, Megaphone, MoveRightIcon } from 'lucide-react';
 import { FaHospitalUser, FaUserDoctor } from 'react-icons/fa6';
 import { NavLink } from 'react-router';
 
-import { poly } from '@/constans';
+import { faq, poly } from '@/constans';
 
 const Home = () => {
     return (
@@ -124,23 +124,14 @@ const Home = () => {
                 <div className='max-w-[90rem] mx-auto w-full grid grid-cols-3'>
                     <h2 className='mt-5 scroll-m-20 pb-2 text-xl font-semibold tracking-tight col-span-1'>Pertanyaan yang sering diajukan (FAQ)</h2>
                     <Accordion type='single' collapsible className='col-span-2'>
-                        <AccordionItem value='item-1'>
-                            <AccordionTrigger>Apakah RS Ernaldi Bahar menerima asuransi kesehatan BPJS?</AccordionTrigger>
-                            <AccordionContent>Iya. RS Ernaldi Bahar menerima asuransi kesehatan BPJS.</AccordionContent>
-                        </AccordionItem>
-
-                        <AccordionItem value='item-2'>
-                            <AccordionTrigger>Asuransi kesehatan apa saja yang bekerjasama dengan RS Ernaldi Bahar?</AccordionTrigger>
-                            <AccordionContent>RS Ernaldi Bahar bekerjasama dengan asuransi kesehatan BPJS PBI dan NON-PBI.</AccordionContent>
-                        </AccordionItem>
-
-                        <AccordionItem value='item-3'>
-                            <AccordionTrigger>Bagaimana alur pelayanan pasien BPJS?</AccordionTrigger>
-                            <AccordionContent>
-                                Pasien BPJS wajib untuk mendapatkan surat rujukan dari puskesmas terlebih dahulu, setelah itu pasien ke RS Ernaldi
-                                Bahar dan akan dilayani seperti biasanya.
-                            </AccordionContent>
-                        </AccordionItem>
+                        {
+                            faq.map((item, index) => (
+                                <AccordionItem value={`item-${index}`}>
+                                    <AccordionTrigger className='cursor-pointer'>{item.quest}</AccordionTrigger>
+                                    <AccordionContent>{item.answer}</AccordionContent>
+                                </AccordionItem>
+                            ))
+                        }
                     </Accordion>
                 </div>
             </section>

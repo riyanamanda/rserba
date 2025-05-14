@@ -28,10 +28,18 @@ import {
     SidebarMenuSubItem,
     useSidebar
 } from '@/components/ui/sidebar';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
+import { useAuth } from '@/context/authProvider';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const { isMobile } = useSidebar();
+    const navigate = useNavigate();
+    const { logout } = useAuth();
+
+    const logoutUser = async () => {
+        await logout();
+        navigate('/login', { replace: true });
+    }
 
     return (
         <Sidebar variant='inset' {...props}>
@@ -153,7 +161,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             <DropdownMenuTrigger asChild>
                                 <SidebarMenuButton
                                     size='lg'
-                                    className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'>
+                                    className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer'>
                                     <Avatar className='h-8 w-8 rounded-lg'>
                                         <AvatarImage
                                             src={`https://ui-avatars.com/api/?name=Riyan Amanda`}
@@ -193,13 +201,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuGroup>
-                                    <DropdownMenuItem>
+                                    <DropdownMenuItem className='cursor-pointer'>
                                         <UserPen />
                                         Account
                                     </DropdownMenuItem>
                                 </DropdownMenuGroup>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem className='cursor-pointer'>
+                                <DropdownMenuItem className='cursor-pointer' onClick={logoutUser}>
                                     <LogOut />
                                     Log out
                                 </DropdownMenuItem>
