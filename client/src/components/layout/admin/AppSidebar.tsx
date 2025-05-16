@@ -26,7 +26,7 @@ import {
     SidebarMenuSub,
     SidebarMenuSubButton,
     SidebarMenuSubItem,
-    useSidebar
+    useSidebar,
 } from '@/components/ui/sidebar';
 import { NavLink, useNavigate } from 'react-router';
 import { useAuth } from '@/context/authProvider';
@@ -36,10 +36,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const navigate = useNavigate();
     const { logout } = useAuth();
 
-    const logoutUser = async () => {
+    const handleLogout = async () => {
         await logout();
         navigate('/login', { replace: true });
-    }
+    };
 
     return (
         <Sidebar variant='inset' {...props}>
@@ -104,27 +104,27 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                     <SidebarMenuButton tooltip='Schools' className='cursor-pointer'>
                                         <GraduationCap />
                                         <span>Schools</span>
-                                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                        <ChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
                                     </SidebarMenuButton>
                                 </CollapsibleTrigger>
 
                                 <CollapsibleContent>
-                                        <SidebarMenuSub>
-                                            <SidebarMenuSubItem>
-                                                <SidebarMenuSubButton asChild>
-                                                    <a href='#'>
-                                                        <span>Titles</span>
-                                                    </a>
-                                                </SidebarMenuSubButton>
+                                    <SidebarMenuSub>
+                                        <SidebarMenuSubItem>
+                                            <SidebarMenuSubButton asChild>
+                                                <a href='#'>
+                                                    <span>Titles</span>
+                                                </a>
+                                            </SidebarMenuSubButton>
 
-                                                <SidebarMenuSubButton asChild>
-                                                    <a href='#'>
-                                                        <span>Educations</span>
-                                                    </a>
-                                                </SidebarMenuSubButton>
-                                            </SidebarMenuSubItem>
-                                        </SidebarMenuSub>
-                                    </CollapsibleContent>
+                                            <SidebarMenuSubButton asChild>
+                                                <a href='#'>
+                                                    <span>Educations</span>
+                                                </a>
+                                            </SidebarMenuSubButton>
+                                        </SidebarMenuSubItem>
+                                    </SidebarMenuSub>
+                                </CollapsibleContent>
                             </SidebarMenuItem>
                         </Collapsible>
 
@@ -207,7 +207,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                     </DropdownMenuItem>
                                 </DropdownMenuGroup>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem className='cursor-pointer' onClick={logoutUser}>
+                                <DropdownMenuItem className='cursor-pointer' onClick={handleLogout}>
                                     <LogOut />
                                     Log out
                                 </DropdownMenuItem>

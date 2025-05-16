@@ -3,8 +3,12 @@ import { Navigate, Outlet } from 'react-router';
 
 const AuthRoute = () => {
     const { currentUser } = useAuth();
-    
-    return currentUser ? <Outlet /> : <Navigate to='/login' replace={true} />;
+
+    if (currentUser === null) {
+        return <Navigate to='/login' replace />;
+    }
+
+    return <Outlet />;
 };
 
 export default AuthRoute;

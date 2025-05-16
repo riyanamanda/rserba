@@ -15,14 +15,14 @@ if (import.meta.env.MODE === 'production') {
 
 createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
-        <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-            <HelmetProvider>
-                <AuthProvider>
-                    <BrowserRouter>
+        <HelmetProvider>
+            <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
+                <BrowserRouter>
+                    <AuthProvider>
                         <AppRoute />
-                    </BrowserRouter>
-                </AuthProvider>
-            </HelmetProvider>
-        </ThemeProvider>
+                    </AuthProvider>
+                </BrowserRouter>
+            </ThemeProvider>
+        </HelmetProvider>
     </QueryClientProvider>
 );

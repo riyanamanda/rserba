@@ -25,20 +25,22 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
                 const { data } = response;
                 setCookie('erba-auth', data.token);
             })
-            .catch((error) => {
-                console.error('Login error:', error);
+            .catch(() => {
+                setCurrentUser(null);
+                setPending(false);
+            })
+            .finally(() => {
+                setPending(false);
             });
-
-        await fetchMe();
-        setPending(false);
+        await getCurrentUser();
     };
 
     const logout = async () => {
-        removeCookie('erba-auth');
         setCurrentUser(null);
+        removeCookie('erba-auth');
     };
 
-    const fetchMe = async () => {
+    const getCurrentUser = async () => {
         await api
             .get('/api/current')
             .then((response) => {
@@ -51,7 +53,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     };
 
     useEffect(() => {
-        fetchMe();
+        getCurrentUser();
     }, []);
 
     return <AuthContext.Provider value={{ currentUser, pending, login, logout }}>{children}</AuthContext.Provider>;

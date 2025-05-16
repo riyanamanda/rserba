@@ -126,7 +126,7 @@ const Home = () => {
                     <Accordion type='single' collapsible className='col-span-2'>
                         {
                             faq.map((item, index) => (
-                                <AccordionItem value={`item-${index}`}>
+                                <AccordionItem value={`item-${index}`} key={index}>
                                     <AccordionTrigger className='cursor-pointer'>{item.quest}</AccordionTrigger>
                                     <AccordionContent>{item.answer}</AccordionContent>
                                 </AccordionItem>

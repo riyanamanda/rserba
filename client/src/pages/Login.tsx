@@ -6,7 +6,7 @@ import Loading from '@/components/ui/loading';
 import { Toaster } from '@/components/ui/sonner';
 import { useAuth } from '@/context/authProvider';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
@@ -32,19 +32,24 @@ const Login = () => {
         },
     });
 
-    const mutation = useMutation((data: FormProps) => login(data));
+    const mutation = useMutation({
+        mutationFn: async (data: FormProps) => {
+            await login(data);
+        },
+        onSuccess: () => {
+            navigate('/admin', { replace: true });
+        },
+    });
 
     const onSubmit: SubmitHandler<FormProps> = (data) => {
         mutation.mutate(data);
-        navigate('/admin/dashboard', { replace: true });
     };
 
-    useLayoutEffect(() => {
-        if (currentUser != null) {
-            navigate('/admin/dashboard', { replace: true });
+    useEffect(() => {
+        if (currentUser) {
+            navigate('/admin', { replace: true });
         }
-    }
-    , [currentUser, navigate]);
+    }, [currentUser, navigate]);
 
     return (
         <>
