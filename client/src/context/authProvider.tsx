@@ -15,7 +15,8 @@ const AuthContext = createContext<AuthContext | undefined>(undefined);
 const AuthProvider = ({ children }: PropsWithChildren) => {
     const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
     const [pending, setPending] = useState(false);
-    const { setCookie, removeCookie } = useCookie();
+
+    const cookie = useCookie();
 
     const login = async (data: LoginProps) => {
         setPending(true);
@@ -23,7 +24,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
             .post('/api/login', data)
             .then((response) => {
                 const { data } = response;
-                setCookie('erba-auth', data.token);
+                cookie.setCookie('erba-auth', data.token);
             })
             .catch(() => {
                 setCurrentUser(null);
@@ -37,15 +38,14 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
     const logout = async () => {
         setCurrentUser(null);
-        removeCookie('erba-auth');
+        cookie.removeCookie('erba-auth');
     };
 
     const getCurrentUser = async () => {
         await api
             .get('/api/current')
             .then((response) => {
-                const { data } = response;
-                setCurrentUser(data);
+                setCurrentUser(response.data);
             })
             .catch(() => {
                 setCurrentUser(null);

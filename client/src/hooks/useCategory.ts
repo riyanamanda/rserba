@@ -25,12 +25,13 @@ export const useCategory = () => {
                 navigate('/admin/category');
             })
             .catch((error) => {
+                console.log(error)
                 if (error.status === 401) {
                     showToast('error', error.message);
                 }
 
-                if (error.status === 403) {
-                    showToast('error', error.message);
+                if (error.status === 409) {
+                    showToast('error', error.response.data.message);
                 }
 
                 if (error.status === 400) {

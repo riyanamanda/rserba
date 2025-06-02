@@ -23,7 +23,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final SlugGenerator slugGenerator;
@@ -35,13 +34,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void save(CategoryCreateRequest request) {
-        if (categoryRepository.findBySlug(slugGenerator.generate(request.getName())).isPresent()) {
+        String slug = slugGenerator.generate(request.getName());
+
+        if (categoryRepository.existsBySlug(slug)){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Category '" + request.getName() + "' already exist");
         }
 
         Category category = new Category();
         category.setName(request.getName());
-        category.setSlug(slugGenerator.generate(request.getName()));
+        category.setSlug(slug);
 
         categoryRepository.save(category);
     }
@@ -61,31 +62,29 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void update(String slug, CategoryUpdateRequest request) {
-        Category category = categoryRepository.findBySlug(slug).orElse(null);
-        String newSlug = slugGenerator.generate(request.getName());
+        Category category = categoryRepository.findBySlug(slug).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Category '" + slug + "' does not exist")
+        );
 
-        // Check if category is present
-        if (category == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category '" + slug + "' not found");
-        }
+        String newSlug = slugGenerator.generate(request.getName());
 
         // Check if category and new category is not match
         if (!newSlug.equals(category.getSlug())) {
-            if (categoryRepository.findBySlug(newSlug).isPresent()) {
+            if (categoryRepository.existsBySlug(newSlug)){
                 throw new ResponseStatusException(HttpStatus.CONFLICT, "Category '" + newSlug + "' already exist");
             }
         }
 
         category.setName(request.getName());
-        category.setSlug(slugGenerator.generate(request.getName()));
+        category.setSlug(newSlug);
 
         categoryRepository.save(category);
     }
 
     @Override
     public void delete(String slug) {
-        if (categoryRepository.findBySlug(slug).isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
+        if (!categoryRepository.existsBySlug(slug)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category '" + slug + "' does not exist");
         }
 
         categoryRepository.deleteBySlug(slug);
