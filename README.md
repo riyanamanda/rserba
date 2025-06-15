@@ -6,5 +6,5 @@ Website to provide informations about Ernaldi Bahar Hospital for visitors. ERD (
 
 - [React]()
 - [Spring Boot]()
-- [Postgre]()
+- [Postgres]()
 - [Tailwind]()
